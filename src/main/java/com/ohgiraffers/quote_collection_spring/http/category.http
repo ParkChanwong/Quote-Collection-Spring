@@ -1,3 +1,7 @@
 ### 모든 국가 조회
 GET http://localhost:8080/country
 Accept: application/json
+
+### 단일 국가 조회
+GET http://localhost:8080/country/1
+Accept: application/json
