@@ -42,9 +42,9 @@ public class CountryService {
     }
 
     // 국가 id 단일 조회
-    public CountryDTO findCountryById(int countryId){
+    public CountryDTO findCountryById(int id){
         CountryEntity countryEntity = countryRepository
-                .findById(countryId)
+                .findById(id)
                 .orElseThrow(NotFoundCountryException::new);
 
         return convertToDTO(countryEntity);
@@ -60,5 +60,21 @@ public class CountryService {
         }
 
         countryRepository.save(convertToEntity(countryDTO));
+    }
+
+    // 국가 수정
+    @Transactional
+    public void modifyCountry(int id, CountryDTO countryDTO){
+        CountryEntity findCountry = countryRepository
+                .findById(id)
+                .orElseThrow(NotFoundCountryException::new);
+
+        if (countryDTO.getName() == null || countryDTO.getName().isBlank()){
+            throw new EmptyCountryException();
+        } else if (countryRepository.existsByName(countryDTO.getName())){
+            throw new DuplicateCountryException();
+        }
+
+        findCountry.setName(countryDTO.getName());
     }
 }
