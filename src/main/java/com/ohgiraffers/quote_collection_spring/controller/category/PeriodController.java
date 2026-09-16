@@ -59,4 +59,17 @@ public class PeriodController {
 
         return new ResponseEntity<>(responseSingle, HttpStatus.OK);
     }
+
+    // 시대 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle> updatePeriod(@PathVariable int id, @RequestBody PeriodDTO periodDTO) {
+        periodService.modifyPeriod(id, periodDTO);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "시대 수정 성공"
+        );
+
+        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+    }
 }
