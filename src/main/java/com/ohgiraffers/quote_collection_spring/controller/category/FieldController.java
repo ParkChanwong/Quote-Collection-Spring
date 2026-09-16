@@ -70,4 +70,17 @@ public class FieldController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    // 분야 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle> deleteField(@PathVariable int id) {
+        fieldService.deleteField(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "분야 삭제 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
