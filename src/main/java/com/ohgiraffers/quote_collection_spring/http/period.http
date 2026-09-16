@@ -13,3 +13,11 @@ Content-Type: application/json
 {
   "name": "AC 17세기"
 }
+
+### 시대 수정
+PUT http://localhost:8080/period/11
+Content-Type: application/json
+
+{
+  "name": "AD 21세기"
+}
