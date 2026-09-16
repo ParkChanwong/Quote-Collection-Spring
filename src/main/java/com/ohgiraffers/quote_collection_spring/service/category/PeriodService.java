@@ -75,4 +75,14 @@ public class PeriodService {
 
         period.setName(periodDTO.getName());
     }
+
+    // 시대 삭제
+    @Transactional
+    public void deletePeriod(int id) {
+        PeriodEntity period = periodRepository
+                .findById(id)
+                .orElseThrow(NotFoundPeriodException::new);
+
+        periodRepository.delete(period);
+    }
 }
