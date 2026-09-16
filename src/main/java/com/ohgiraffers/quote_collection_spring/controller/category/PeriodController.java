@@ -31,7 +31,7 @@ public class PeriodController {
                 periods
         );
 
-        return new ResponseEntity<>(responseList, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
     // 시대 ID 단일 조회
@@ -44,7 +44,7 @@ public class PeriodController {
                 periodDTO
         );
 
-        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
     // 시대 등록
@@ -57,7 +57,7 @@ public class PeriodController {
                 "시대 등록 성공"
         );
 
-        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
     // 시대 수정
@@ -70,7 +70,7 @@ public class PeriodController {
                 "시대 수정 성공"
         );
 
-        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
     // 시대 삭제
@@ -83,6 +83,6 @@ public class PeriodController {
                 "시대 삭제 성공"
         );
 
-        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 }
