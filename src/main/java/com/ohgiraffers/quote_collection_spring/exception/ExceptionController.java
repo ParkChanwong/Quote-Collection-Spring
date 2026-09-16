@@ -4,6 +4,8 @@ import com.ohgiraffers.quote_collection_spring.common.ResponseError;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
+import com.ohgiraffers.quote_collection_spring.exception.category.period.DuplicatePeriodException;
+import com.ohgiraffers.quote_collection_spring.exception.category.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,8 @@ public class ExceptionController {
 
     // 필수값을 빈값으로 등록
     @ExceptionHandler({
-            EmptyCountryException.class
+            EmptyCountryException.class,
+            EmptyPeriodException.class
     })
     public ResponseEntity<ResponseError> emptyCountry(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -41,7 +44,8 @@ public class ExceptionController {
 
     // 중복 등록
     @ExceptionHandler({
-            DuplicateCountryException.class
+            DuplicateCountryException.class,
+            DuplicatePeriodException.class
     })
     public ResponseEntity<ResponseError> duplicateCountry(DuplicateCountryException e) {
         ResponseError responseError = new ResponseError(
