@@ -1,10 +1,10 @@
-package com.ohgiraffers.quote_collection_spring.entity;
+package com.ohgiraffers.quote_collection_spring.entity.category;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "country")
-public class Country {
+public class CountryEntity {
     @Id
     @Column(name = "country_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,9 +13,9 @@ public class Country {
     @Column(name = "country_name")
     private String name;
 
-    public Country() {}
+    public CountryEntity() {}
 
-    public Country(int id, String name) {
+    public CountryEntity(int id, String name) {
         this.id = id;
         this.name = name;
     }
