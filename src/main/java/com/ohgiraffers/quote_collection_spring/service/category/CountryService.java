@@ -26,4 +26,10 @@ public class CountryService {
 
         return countries.stream().map(this::ConvertToDTO).toList();
     }
+
+    public CountryDTO findCountryById(int countryId){
+        CountryEntity countryEntity = countryRepository.findById(countryId).orElse(null);
+
+        return ConvertToDTO(countryEntity);
+    }
 }
