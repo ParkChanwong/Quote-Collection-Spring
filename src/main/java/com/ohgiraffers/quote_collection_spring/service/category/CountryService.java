@@ -2,6 +2,7 @@ package com.ohgiraffers.quote_collection_spring.service.category;
 
 import com.ohgiraffers.quote_collection_spring.dto.category.CountryDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.CountryEntity;
+import com.ohgiraffers.quote_collection_spring.exception.NotFoundCountryException;
 import com.ohgiraffers.quote_collection_spring.repository.category.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,9 @@ public class CountryService {
     }
 
     public CountryDTO findCountryById(int countryId){
-        CountryEntity countryEntity = countryRepository.findById(countryId).orElse(null);
+        CountryEntity countryEntity = countryRepository
+                .findById(countryId)
+                .orElseThrow(NotFoundCountryException::new);
 
         return ConvertToDTO(countryEntity);
     }
