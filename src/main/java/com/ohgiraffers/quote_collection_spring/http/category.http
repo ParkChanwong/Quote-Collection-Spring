@@ -21,3 +21,6 @@ Content-Type: application/json
 {
   "name": "대만"
 }
+
+### 국가 삭제
+DELETE http://localhost:8080/country/11
