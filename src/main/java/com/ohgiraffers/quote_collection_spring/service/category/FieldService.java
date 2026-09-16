@@ -76,4 +76,14 @@ public class FieldService {
 
         field.setName(fieldDTO.getName());
     }
+
+    // 분야 삭제
+    @Transactional
+    public void deleteField(int id) {
+        FieldEntity field = fieldRepository
+                .findById(id)
+                .orElseThrow(NotFoundFieldException::new);
+
+        fieldRepository.delete(field);
+    }
 }
