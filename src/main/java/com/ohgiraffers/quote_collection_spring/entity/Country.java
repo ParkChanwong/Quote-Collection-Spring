@@ -9,6 +9,7 @@ public class Country {
     @Column(name = "country_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(name = "country_name")
     private String name;
 
