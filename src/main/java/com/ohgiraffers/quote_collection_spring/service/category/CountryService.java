@@ -8,7 +8,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFou
 import com.ohgiraffers.quote_collection_spring.repository.category.CountryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +35,8 @@ public class CountryService {
 
     // 전체 국가 조회
     public List<CountryDTO> findAllCountries() {
-        List<CountryEntity> countries = countryRepository.findAll();
+        // Sort.by로 국가명 가나다 순으로 정렬
+        List<CountryEntity> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
         return countries.stream().map(this::convertToDTO).toList();
     }
