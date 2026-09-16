@@ -2,13 +2,13 @@ package com.ohgiraffers.quote_collection_spring.dto.category;
 
 public class PeriodDTO {
     private int id;
-    private String period;
+    private String name;
 
     public PeriodDTO() {}
 
-    public PeriodDTO(int id, String period) {
+    public PeriodDTO(int id, String name) {
         this.id = id;
-        this.period = period;
+        this.name = name;
     }
 
     public int getId() {
@@ -19,19 +19,19 @@ public class PeriodDTO {
         this.id = id;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getName() {
+        return name;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "PeriodDTO{" +
                 "id=" + id +
-                ", period='" + period + '\'' +
+                ", period='" + name + '\'' +
                 '}';
     }
 }
