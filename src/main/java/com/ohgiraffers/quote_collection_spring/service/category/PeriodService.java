@@ -22,6 +22,7 @@ public class PeriodService {
         return new PeriodDTO(periodEntity.getId(), periodEntity.getName());
     }
 
+    // 전체 시대 조회
     public List<PeriodDTO> findAllPeriods() {
         List<PeriodEntity> periods = periodRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
