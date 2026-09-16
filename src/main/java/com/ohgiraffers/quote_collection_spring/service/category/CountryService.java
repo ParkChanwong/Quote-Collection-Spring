@@ -77,4 +77,12 @@ public class CountryService {
 
         findCountry.setName(countryDTO.getName());
     }
+
+    // 국가 삭제
+    @Transactional
+    public void deleteCountry(int id){
+        CountryEntity deleteCountry = countryRepository.findById(id).orElseThrow(NotFoundCountryException::new);
+
+        countryRepository.delete(deleteCountry);
+    }
 }
