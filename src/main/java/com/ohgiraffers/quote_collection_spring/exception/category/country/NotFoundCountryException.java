@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.exception;
+package com.ohgiraffers.quote_collection_spring.exception.category.country;
 
 public class NotFoundCountryException extends RuntimeException {
     public NotFoundCountryException(String message) {
