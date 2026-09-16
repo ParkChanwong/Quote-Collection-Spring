@@ -4,12 +4,10 @@ import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.CountryDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.CountryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +16,7 @@ import java.util.List;
 public class CountryController {
     private final CountryService countryService;
 
+    @Autowired
     public CountryController(CountryService countryService) {
         this.countryService = countryService;
     }
@@ -42,6 +41,18 @@ public class CountryController {
         ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
                 countryDTO
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
+
+    @PostMapping
+    public ResponseEntity<ResponseSingle> updateCountry(@RequestBody CountryDTO countryDTO){
+        countryService.saveCountry(countryDTO);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "국가 등록 성공"
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
