@@ -2,8 +2,11 @@ package com.ohgiraffers.quote_collection_spring.service.category;
 
 import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.FieldEntity;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.EmptyFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.repository.category.FieldRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,13 @@ public class FieldService {
         return new FieldDTO(fieldEntity.getId(), fieldEntity.getName());
     }
 
+    public FieldEntity convertToEntity(FieldDTO fieldDTO) {
+        FieldEntity fieldEntity = new FieldEntity();
+        fieldEntity.setName(fieldDTO.getName());
+
+        return fieldEntity;
+    }
+
     // 전체 분야 조회
     public List<FieldDTO> findAllFields() {
         List<FieldEntity> fields = fieldRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
@@ -37,5 +47,17 @@ public class FieldService {
                 .orElseThrow(NotFoundFieldException::new);
 
         return convertToDTO(fieldEntity);
+    }
+
+    // 분야 등록
+    @Transactional
+    public void saveField(FieldDTO fieldDTO) {
+        if (fieldDTO.getName() == null || fieldDTO.getName().isBlank()) {
+            throw new EmptyFieldException();
+        } else if (fieldRepository.existsByName(fieldDTO.getName())) {
+            throw new DuplicateFieldException();
+        }
+
+        fieldRepository.save(convertToEntity(fieldDTO));
     }
 }
