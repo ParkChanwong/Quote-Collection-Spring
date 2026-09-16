@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/period")
 public class PeriodController {
-    private PeriodService periodService;
+    private final PeriodService periodService;
 
     @Autowired
     public PeriodController(PeriodService periodService) {
