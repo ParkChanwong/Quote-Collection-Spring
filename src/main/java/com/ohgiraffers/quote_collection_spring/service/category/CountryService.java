@@ -33,12 +33,14 @@ public class CountryService {
         return countryEntity;
     }
 
+    // 전체 국가 조회
     public List<CountryDTO> findAllCountries() {
         List<CountryEntity> countries = countryRepository.findAll();
 
         return countries.stream().map(this::convertToDTO).toList();
     }
 
+    // 국가 id 단일 조회
     public CountryDTO findCountryById(int countryId){
         CountryEntity countryEntity = countryRepository
                 .findById(countryId)
@@ -47,6 +49,7 @@ public class CountryService {
         return convertToDTO(countryEntity);
     }
 
+    // 국가 등록
     @Transactional
     public void saveCountry(CountryDTO countryDTO){
         if (countryDTO.getName() == null || countryDTO.getName().isBlank()){

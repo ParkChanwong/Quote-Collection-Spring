@@ -34,6 +34,7 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    // 국가 id 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findCountryById(@PathVariable int id){
         CountryDTO countryDTO = countryService.findCountryById(id);
@@ -46,6 +47,7 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
+    // 국가 등록
     @PostMapping
     public ResponseEntity<ResponseSingle> updateCountry(@RequestBody CountryDTO countryDTO){
         countryService.saveCountry(countryDTO);
