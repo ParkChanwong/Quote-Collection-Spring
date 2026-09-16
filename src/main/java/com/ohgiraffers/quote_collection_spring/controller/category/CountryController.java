@@ -72,4 +72,16 @@ public class CountryController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle> deleteCountry(@PathVariable int id){
+        countryService.deleteCountry(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "국가 삭제 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
