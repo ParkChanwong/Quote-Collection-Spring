@@ -60,4 +60,18 @@ public class PeriodService {
 
         periodRepository.save(convertToEntity(periodDTO));
     }
+
+    @Transactional
+    public void modifyPeriod(int id, PeriodDTO periodDTO) {
+        PeriodEntity period = periodRepository
+                .findById(id)
+                .orElseThrow(NotFoundPeriodException::new);
+        if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
+            throw new EmptyPeriodException();
+        } else if (periodRepository.existsByName(periodDTO.getName())) {
+            throw new DuplicateCountryException();
+        }
+
+        period.setName(periodDTO.getName());
+    }
 }
