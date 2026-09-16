@@ -60,4 +60,20 @@ public class FieldService {
 
         fieldRepository.save(convertToEntity(fieldDTO));
     }
+
+    // 분야 수정
+    @Transactional
+    public void modifyField(int id, FieldDTO fieldDTO) {
+        FieldEntity field = fieldRepository
+                .findById(id)
+                .orElseThrow(NotFoundFieldException::new);
+
+        if (fieldDTO.getName() == null || fieldDTO.getName().isBlank()) {
+            throw new EmptyFieldException();
+        } else if (fieldRepository.existsByName(fieldDTO.getName())) {
+            throw new DuplicateFieldException();
+        }
+
+        field.setName(fieldDTO.getName());
+    }
 }
