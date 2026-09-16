@@ -1,12 +1,14 @@
 package com.ohgiraffers.quote_collection_spring.controller.category;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
+import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.PeriodDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.PeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +35,18 @@ public class PeriodController {
         );
 
         return new ResponseEntity<>(responseList, HttpStatus.OK);
+    }
+
+    // 시대 ID 단일 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSingle> findPeriodById(@PathVariable int id) {
+        PeriodDTO periodDTO = periodService.findPeriodById(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                periodDTO
+        );
+
+        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
     }
 }
