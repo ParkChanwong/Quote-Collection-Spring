@@ -72,4 +72,17 @@ public class PeriodController {
 
         return new ResponseEntity<>(responseSingle, HttpStatus.OK);
     }
+
+    // 시대 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle> deletePeriod(@PathVariable int id) {
+        periodService.deletePeriod(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "시대 삭제 성공"
+        );
+
+        return new ResponseEntity<>(responseSingle, HttpStatus.OK);
+    }
 }
