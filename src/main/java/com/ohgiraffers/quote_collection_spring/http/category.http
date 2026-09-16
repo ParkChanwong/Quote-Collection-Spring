@@ -5,3 +5,11 @@ Accept: application/json
 ### 단일 국가 조회
 GET http://localhost:8080/country/1
 Accept: application/json
+
+### 국가 등록
+POST http://localhost:8080/country
+Content-Type: application/json
+
+{
+    "name": "러시아"
+}
