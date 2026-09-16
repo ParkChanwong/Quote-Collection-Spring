@@ -1,6 +1,7 @@
 package com.ohgiraffers.quote_collection_spring.exception;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseError;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
@@ -17,7 +18,8 @@ public class ExceptionController {
     // 존재하지 않음
     @ExceptionHandler({
             NotFoundCountryException.class,
-            NotFoundPeriodException.class
+            NotFoundPeriodException.class,
+            NotFoundFieldException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
