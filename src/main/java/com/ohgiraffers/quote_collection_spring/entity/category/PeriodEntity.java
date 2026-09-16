@@ -10,7 +10,7 @@ public class PeriodEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "period_name")
+    @Column(name = "period_name", unique = true)
     private String name;
 
     public PeriodEntity() {}

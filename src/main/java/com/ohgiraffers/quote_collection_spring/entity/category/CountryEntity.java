@@ -10,7 +10,7 @@ public class CountryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "country_name")
+    @Column(name = "country_name", unique = true)
     private String name;
 
     public CountryEntity() {}
