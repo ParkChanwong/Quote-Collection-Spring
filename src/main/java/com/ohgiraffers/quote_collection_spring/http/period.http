@@ -1,3 +1,7 @@
 ### 전체 시대 조회
 GET http://localhost:8080/period
 Accept: application/json
+
+### 시대 ID 단일 조회
+GET http://localhost:8080/period/13
+Accept: application/json
