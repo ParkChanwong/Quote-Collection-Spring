@@ -3,19 +3,19 @@ package com.ohgiraffers.quote_collection_spring.entity.category;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "country")
-public class CountryEntity {
+@Table(name = "period")
+public class PeriodEntity {
     @Id
-    @Column(name = "country_id")
+    @Column(name = "period_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "country_name", unique = true)
+    @Column(name = "period_name", unique = true)
     private String name;
 
-    public CountryEntity() {}
+    public PeriodEntity() {}
 
-    public CountryEntity(int id, String name) {
+    public PeriodEntity(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -38,7 +38,7 @@ public class CountryEntity {
 
     @Override
     public String toString() {
-        return "Country{" +
+        return "PeriodEntity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
