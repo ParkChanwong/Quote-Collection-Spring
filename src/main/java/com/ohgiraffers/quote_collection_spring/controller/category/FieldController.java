@@ -1,13 +1,12 @@
 package com.ohgiraffers.quote_collection_spring.controller.category;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
+import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.FieldService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +29,19 @@ public class FieldController {
                 fields
         );
 
-        return new ResponseEntity<>(responseList, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+    }
+
+    // 분야 ID 단일 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSingle> findFieldById(@PathVariable int id) {
+        FieldDTO fieldDTO = fieldService.findFieldById(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                fieldDTO
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 }
