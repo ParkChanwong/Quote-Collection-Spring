@@ -1,13 +1,21 @@
-package com.ohgiraffers.quote_collection_spring.dto.category;
+package com.ohgiraffers.quote_collection_spring.entity.category;
 
-public class CountryDTO {
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "country")
+public class CountryEntity {
+    @Id
+    @Column(name = "country_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "country_name")
     private String name;
 
-    public CountryDTO() {
-    }
+    public CountryEntity() {}
 
-    public CountryDTO(int id, String name) {
+    public CountryEntity(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -30,7 +38,7 @@ public class CountryDTO {
 
     @Override
     public String toString() {
-        return "CountryDTO{" +
+        return "Country{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
