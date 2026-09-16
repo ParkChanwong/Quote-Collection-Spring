@@ -59,4 +59,17 @@ public class CountryController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    // 국가 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle> updateCountry(@PathVariable int id, @RequestBody CountryDTO countryDTO){
+        countryService.modifyCountry(id, countryDTO);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "국가 수정 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
