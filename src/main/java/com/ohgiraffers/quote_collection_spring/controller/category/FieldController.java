@@ -44,4 +44,17 @@ public class FieldController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    // 분야 등록
+    @PostMapping
+    public ResponseEntity<ResponseSingle> saveField(@RequestBody FieldDTO fieldDTO) {
+        fieldService.saveField(fieldDTO);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "분야 등록 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
