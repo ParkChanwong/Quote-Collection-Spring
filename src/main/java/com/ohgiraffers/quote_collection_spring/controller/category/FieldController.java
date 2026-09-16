@@ -57,4 +57,17 @@ public class FieldController {
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    // 분야 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle> modifyField(@PathVariable int id, @RequestBody FieldDTO fieldDTO) {
+        fieldService.modifyField(id, fieldDTO);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "분야 수정 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
