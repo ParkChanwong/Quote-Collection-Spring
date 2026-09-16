@@ -21,3 +21,6 @@ Content-Type: application/json
 {
   "name": "운동"
 }
+
+### 분야 삭제
+DELETE http://localhost:8080/field/11
