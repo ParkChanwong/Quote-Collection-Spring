@@ -24,11 +24,11 @@ public class CountryController {
     // 전체 국가 조회
     @GetMapping
     public ResponseEntity<ResponseList> findAllCountries() {
-        List<CountryDTO> contries = countryService.findAllCountries();
+        List<CountryDTO> countries = countryService.findAllCountries();
 
         ResponseList responseList = new ResponseList(
                 HttpStatus.OK.value(),
-                contries
+                countries
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
