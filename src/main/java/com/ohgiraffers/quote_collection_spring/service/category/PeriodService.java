@@ -2,8 +2,11 @@ package com.ohgiraffers.quote_collection_spring.service.category;
 
 import com.ohgiraffers.quote_collection_spring.dto.category.PeriodDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.PeriodEntity;
+import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
+import com.ohgiraffers.quote_collection_spring.exception.category.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
 import com.ohgiraffers.quote_collection_spring.repository.category.PeriodRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -23,6 +26,13 @@ public class PeriodService {
         return new PeriodDTO(periodEntity.getId(), periodEntity.getName());
     }
 
+    public PeriodEntity convertToEntity(PeriodDTO periodDTO) {
+        PeriodEntity periodEntity = new PeriodEntity();
+        periodEntity.setName(periodDTO.getName());
+
+        return periodEntity;
+    }
+
     // 전체 시대 조회
     public List<PeriodDTO> findAllPeriods() {
         List<PeriodEntity> periods = periodRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
@@ -37,5 +47,17 @@ public class PeriodService {
                 .orElseThrow(NotFoundPeriodException::new);
 
         return convertToDTO(period);
+    }
+
+    // 시대 등록
+    @Transactional
+    public void savePeriod(PeriodDTO periodDTO) {
+        if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
+            throw new EmptyPeriodException();
+        } else if (periodRepository.existsByName(periodDTO.getName())) {
+            throw new DuplicateCountryException();
+        }
+
+        periodRepository.save(convertToEntity(periodDTO));
     }
 }
