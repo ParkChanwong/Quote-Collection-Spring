@@ -61,6 +61,7 @@ public class PeriodService {
         periodRepository.save(convertToEntity(periodDTO));
     }
 
+    // 시대 수정
     @Transactional
     public void modifyPeriod(int id, PeriodDTO periodDTO) {
         PeriodEntity period = periodRepository
