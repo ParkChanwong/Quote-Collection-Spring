@@ -2,11 +2,11 @@ package com.ohgiraffers.quote_collection_spring.service.category;
 
 import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.FieldEntity;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.repository.category.FieldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
@@ -28,5 +28,14 @@ public class FieldService {
         List<FieldEntity> fields = fieldRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 
         return fields.stream().map(this::convertToDTO).toList();
+    }
+
+    // 분야 ID 단일 조회
+    public FieldDTO findFieldById(int id) {
+        FieldEntity fieldEntity = fieldRepository
+                .findById(id)
+                .orElseThrow(NotFoundFieldException::new);
+
+        return convertToDTO(fieldEntity);
     }
 }
