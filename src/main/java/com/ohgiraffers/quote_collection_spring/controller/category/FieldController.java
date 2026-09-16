@@ -2,9 +2,8 @@ package com.ohgiraffers.quote_collection_spring.controller.category;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
-import com.ohgiraffers.quote_collection_spring.dto.category.PeriodDTO;
-import com.ohgiraffers.quote_collection_spring.service.category.PeriodService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
+import com.ohgiraffers.quote_collection_spring.service.category.FieldService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,75 +11,74 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/period")
-public class PeriodController {
-    private final PeriodService periodService;
+@RequestMapping("/field")
+public class FieldController {
+    private final FieldService fieldService;
 
-    @Autowired
-    public PeriodController(PeriodService periodService) {
-        this.periodService = periodService;
+    public FieldController(FieldService fieldService) {
+        this.fieldService = fieldService;
     }
 
-    // 전체 시대 조회
+    // 전체 분야 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllPeriods() {
-        List<PeriodDTO> periods = periodService.findAllPeriods();
+    public ResponseEntity<ResponseList> findAllFields() {
+        List<FieldDTO> fields = fieldService.findAllFields();
 
         ResponseList responseList = new ResponseList(
                 HttpStatus.OK.value(),
-                periods
+                fields
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
-    // 시대 ID 단일 조회
+    // 분야 ID 단일 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSingle> findPeriodById(@PathVariable int id) {
-        PeriodDTO periodDTO = periodService.findPeriodById(id);
+    public ResponseEntity<ResponseSingle> findFieldById(@PathVariable int id) {
+        FieldDTO fieldDTO = fieldService.findFieldById(id);
 
         ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
-                periodDTO
+                fieldDTO
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
-    // 시대 등록
+    // 분야 등록
     @PostMapping
-    public ResponseEntity<ResponseSingle> createPeriod(@RequestBody PeriodDTO periodDTO) {
-        periodService.savePeriod(periodDTO);
+    public ResponseEntity<ResponseSingle> saveField(@RequestBody FieldDTO fieldDTO) {
+        fieldService.saveField(fieldDTO);
 
         ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
-                "시대 등록 성공"
+                "분야 등록 성공"
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
-    // 시대 수정
+    // 분야 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseSingle> updatePeriod(@PathVariable int id, @RequestBody PeriodDTO periodDTO) {
-        periodService.modifyPeriod(id, periodDTO);
+    public ResponseEntity<ResponseSingle> modifyField(@PathVariable int id, @RequestBody FieldDTO fieldDTO) {
+        fieldService.modifyField(id, fieldDTO);
 
         ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
-                "시대 수정 성공"
+                "분야 수정 성공"
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
 
-    // 시대 삭제
+    // 분야 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseSingle> deletePeriod(@PathVariable int id) {
-        periodService.deletePeriod(id);
+    public ResponseEntity<ResponseSingle> deleteField(@PathVariable int id) {
+        fieldService.deleteField(id);
 
         ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
-                "시대 삭제 성공"
+                "분야 삭제 성공"
         );
 
         return ResponseEntity.status(HttpStatus.OK).body(responseSingle);

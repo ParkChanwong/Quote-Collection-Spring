@@ -15,7 +15,7 @@ import java.util.List;
 
 @Service
 public class PeriodService {
-    private PeriodRepository periodRepository;
+    private final PeriodRepository periodRepository;
 
     @Autowired
     public PeriodService(PeriodRepository periodRepository) {

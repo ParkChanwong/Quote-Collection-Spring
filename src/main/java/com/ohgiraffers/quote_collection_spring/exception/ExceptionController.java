@@ -1,6 +1,9 @@
 package com.ohgiraffers.quote_collection_spring.exception;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseError;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
@@ -17,7 +20,8 @@ public class ExceptionController {
     // 존재하지 않음
     @ExceptionHandler({
             NotFoundCountryException.class,
-            NotFoundPeriodException.class
+            NotFoundPeriodException.class,
+            NotFoundFieldException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -31,9 +35,10 @@ public class ExceptionController {
     // 필수값을 빈값으로 등록
     @ExceptionHandler({
             EmptyCountryException.class,
-            EmptyPeriodException.class
+            EmptyPeriodException.class,
+            EmptyFieldException.class
     })
-    public ResponseEntity<ResponseError> emptyCountry(Exception e) {
+    public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage()
@@ -45,9 +50,10 @@ public class ExceptionController {
     // 중복 등록
     @ExceptionHandler({
             DuplicateCountryException.class,
-            DuplicatePeriodException.class
+            DuplicatePeriodException.class,
+            DuplicateFieldException.class
     })
-    public ResponseEntity<ResponseError> duplicateCountry(DuplicateCountryException e) {
+    public ResponseEntity<ResponseError> duplicateException(Exception e) {
         ResponseError responseError = new ResponseError(
                 HttpStatus.CONFLICT.value(),
                 e.getMessage()
