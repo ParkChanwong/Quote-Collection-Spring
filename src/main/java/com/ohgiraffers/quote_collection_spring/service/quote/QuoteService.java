@@ -70,7 +70,7 @@ public class QuoteService {
         QuoteEntity quoteEntity = new QuoteEntity();
         quoteEntity.setPerson(personEntity);
         quoteEntity.setTheme(themeEntity);
-        quoteEntity.setQuote(quoteRequestDTO.getQuote());
+        quoteEntity.setQuote(quoteRequestDTO.getQuote().trim());
 
         return quoteEntity;
     }
@@ -120,10 +120,41 @@ public class QuoteService {
 
         if (quoteDTO.getQuote() == null || quoteDTO.getQuote().isBlank()) {
             throw new EmptyQuoteException();
-        } else if (quoteRepository.existsByPersonIdAndThemeIdAndQuote(personEntity.getId(), themeEntity.getId(), quoteDTO.getQuote())) {
+        } else if (
+            quoteRepository.existsByPersonIdAndThemeIdAndQuote(
+                personEntity.getId(),
+                themeEntity.getId(),
+                quoteDTO.getQuote()
+            )
+        ) {
             throw new DuplicateQuoteException();
         }
 
         quoteRepository.save(convertToEntity(quoteDTO, personEntity, themeEntity));
+    }
+
+    // 명언 수정
+    @Transactional
+    public void modifyQuote(int id, QuoteRequestDTO quoteDTO) {
+        QuoteEntity quote = quoteRepository.findById(id).orElseThrow(NotFoundQuoteException::new);
+
+        PersonEntity person = findPersonOrThrow(quoteDTO.getPersonId());
+        ThemeEntity theme = findThemeOrThrow(quoteDTO.getThemeId());
+
+        if (quoteDTO.getQuote() == null || quoteDTO.getQuote().isBlank()) {
+            throw new EmptyQuoteException();
+        } else if (
+            quoteRepository.existsByPersonIdAndThemeIdAndQuote(
+                person.getId(),
+                theme.getId(),
+                quoteDTO.getQuote()
+            )
+        ) {
+            throw new DuplicateQuoteException();
+        }
+
+        quote.setPerson(person);
+        quote.setTheme(theme);
+        quote.setQuote(quoteDTO.getQuote().trim());
     }
 }
