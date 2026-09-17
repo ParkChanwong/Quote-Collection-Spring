@@ -28,7 +28,7 @@ public class PeriodService {
 
     public PeriodEntity convertToEntity(PeriodDTO periodDTO) {
         PeriodEntity periodEntity = new PeriodEntity();
-        periodEntity.setName(periodDTO.getName());
+        periodEntity.setName(periodDTO.getName().trim());
 
         return periodEntity;
     }
@@ -73,7 +73,7 @@ public class PeriodService {
             throw new DuplicateCountryException();
         }
 
-        period.setName(periodDTO.getName());
+        period.setName(periodDTO.getName().trim());
     }
 
     // 시대 삭제

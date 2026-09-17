@@ -28,7 +28,7 @@ public class FieldService {
 
     public FieldEntity convertToEntity(FieldDTO fieldDTO) {
         FieldEntity fieldEntity = new FieldEntity();
-        fieldEntity.setName(fieldDTO.getName());
+        fieldEntity.setName(fieldDTO.getName().trim());
 
         return fieldEntity;
     }
@@ -74,7 +74,7 @@ public class FieldService {
             throw new DuplicateFieldException();
         }
 
-        field.setName(fieldDTO.getName());
+        field.setName(fieldDTO.getName().trim());
     }
 
     // 분야 삭제

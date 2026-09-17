@@ -28,7 +28,7 @@ public class CountryService {
 
     public CountryEntity convertToEntity(CountryDTO countryDTO){
         CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setName(countryDTO.getName());
+        countryEntity.setName(countryDTO.getName().trim());
 
         return countryEntity;
     }
@@ -75,7 +75,7 @@ public class CountryService {
             throw new DuplicateCountryException();
         }
 
-        findCountry.setName(countryDTO.getName());
+        findCountry.setName(countryDTO.getName().trim());
     }
 
     // 국가 삭제

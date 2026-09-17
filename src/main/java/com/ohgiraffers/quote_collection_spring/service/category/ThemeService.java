@@ -29,7 +29,7 @@ public class ThemeService {
 
     public ThemeEntity convertToEntity(ThemeDTO themeDTO) {
         ThemeEntity themeEntity = new ThemeEntity();
-        themeEntity.setName(themeDTO.getName());
+        themeEntity.setName(themeDTO.getName().trim());
 
         return themeEntity;
     }
@@ -75,7 +75,7 @@ public class ThemeService {
             throw new DuplicateThemeException();
         }
 
-        theme.setName(themeDTO.getName());
+        theme.setName(themeDTO.getName().trim());
     }
 
     // 주제 삭제
