@@ -15,6 +15,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.theme.EmptyThe
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.person.EmptyPersonException;
 import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.exception.quote.DuplicateQuoteException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.EmptyQuoteException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.NotFoundQuoteException;
 import org.springframework.http.HttpStatus;
@@ -65,7 +66,8 @@ public class ExceptionController {
             DuplicateCountryException.class,
             DuplicatePeriodException.class,
             DuplicateFieldException.class,
-            DuplicateThemeException.class
+            DuplicateThemeException.class,
+            DuplicateQuoteException.class
     })
     public ResponseEntity<ResponseError> duplicateException(Exception e) {
         ResponseError responseError = new ResponseError(
