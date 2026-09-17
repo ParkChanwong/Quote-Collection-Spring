@@ -6,10 +6,7 @@ import com.ohgiraffers.quote_collection_spring.dto.category.ThemeDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.ThemeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,6 +19,7 @@ public class ThemeController {
         this.themeService = themeService;
     }
 
+    // 전체 주제 조회
     @GetMapping
     public ResponseEntity<ResponseList> findAllThemes() {
         List<ThemeDTO> themes = themeService.findAllThemes();
@@ -34,15 +32,33 @@ public class ThemeController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    // 주제 ID 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findThemeById(@PathVariable int id) {
         ThemeDTO theme = themeService.findThemeById(id);
 
-        ResponseSingle responseList = new ResponseSingle(
+        ResponseSingle responseSingle = new ResponseSingle(
                 HttpStatus.OK.value(),
                 theme
         );
 
-        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
     }
+
+    // 주제 등록
+    @PostMapping
+    public ResponseEntity<ResponseSingle> saveTheme(@RequestBody ThemeDTO theme) {
+        themeService.saveTheme(theme);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "주제 등록 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
+
+    // 주제 수정
+
+    // 주제 삭제
 }
