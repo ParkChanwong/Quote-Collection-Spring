@@ -8,11 +8,13 @@ import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.entity.quote.QuoteEntity;
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.exception.quote.DuplicateQuoteException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.EmptyQuoteException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.NotFoundQuoteException;
 import com.ohgiraffers.quote_collection_spring.repository.category.ThemeRepository;
 import com.ohgiraffers.quote_collection_spring.repository.person.PersonRepository;
 import com.ohgiraffers.quote_collection_spring.repository.quote.QuoteRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -111,12 +113,15 @@ public class QuoteService {
     }
 
     // 명언 등록
+    @Transactional
     public void saveQuote(QuoteRequestDTO quoteDTO) {
         PersonEntity personEntity = findPersonOrThrow(quoteDTO.getPersonId());
         ThemeEntity themeEntity = findThemeOrThrow(quoteDTO.getThemeId());
 
         if (quoteDTO.getQuote() == null || quoteDTO.getQuote().isBlank()) {
             throw new EmptyQuoteException();
+        } else if (quoteRepository.existsByPersonIdAndThemeIdAndQuote(personEntity.getId(), themeEntity.getId(), quoteDTO.getQuote())) {
+            throw new DuplicateQuoteException();
         }
 
         quoteRepository.save(convertToEntity(quoteDTO, personEntity, themeEntity));
