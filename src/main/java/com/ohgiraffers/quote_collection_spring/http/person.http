@@ -32,3 +32,14 @@ Content-Type: application/json
   "fieldId": 1,
   "name": "test"
 }
+
+### 인물 수정
+PUT http://localhost:8080/person/11
+Content-Type: application/json
+
+{
+  "countryId": 2,
+  "periodId": 1,
+  "fieldId": 1,
+  "name": "test"
+}
