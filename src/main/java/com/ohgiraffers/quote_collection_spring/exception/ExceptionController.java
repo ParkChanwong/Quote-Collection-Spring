@@ -10,6 +10,8 @@ import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFou
 import com.ohgiraffers.quote_collection_spring.exception.category.period.DuplicatePeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.DuplicateThemeException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.EmptyThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +40,8 @@ public class ExceptionController {
     @ExceptionHandler({
             EmptyCountryException.class,
             EmptyPeriodException.class,
-            EmptyFieldException.class
+            EmptyFieldException.class,
+            EmptyThemeException.class
     })
     public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -53,7 +56,8 @@ public class ExceptionController {
     @ExceptionHandler({
             DuplicateCountryException.class,
             DuplicatePeriodException.class,
-            DuplicateFieldException.class
+            DuplicateFieldException.class,
+            DuplicateThemeException.class
     })
     public ResponseEntity<ResponseError> duplicateException(Exception e) {
         ResponseError responseError = new ResponseError(
