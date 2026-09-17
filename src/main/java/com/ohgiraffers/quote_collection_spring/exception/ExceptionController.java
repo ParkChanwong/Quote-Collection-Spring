@@ -10,6 +10,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFou
 import com.ohgiraffers.quote_collection_spring.exception.category.period.DuplicatePeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +22,8 @@ public class ExceptionController {
     @ExceptionHandler({
             NotFoundCountryException.class,
             NotFoundPeriodException.class,
-            NotFoundFieldException.class
+            NotFoundFieldException.class,
+            NotFoundThemeException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
