@@ -36,14 +36,14 @@ public class ThemeService {
 
     // 전체 주제 조회
     public List<ThemeDTO> findAllThemes() {
-        List<ThemeEntity> themes = themeRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<ThemeEntity> themes = themeRepository.findAll(Sort.by("name"));
 
         return themes.stream().map(this::convertToDTO).toList();
     }
 
     // 주제명으로 주제 조회
     public List<ThemeDTO> findAllThemesByName(String name) {
-        List<ThemeEntity> themes = themeRepository.findByNameContaining(name);
+        List<ThemeEntity> themes = themeRepository.findByNameContaining(name, Sort.by("name"));
 
         return themes.stream().map(this::convertToDTO).toList();
     }

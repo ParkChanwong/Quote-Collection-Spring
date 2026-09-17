@@ -36,14 +36,14 @@ public class CountryService {
     // 전체 국가 조회
     public List<CountryDTO> findAllCountries() {
         // Sort.by로 국가명 가나다 순으로 정렬
-        List<CountryEntity> countries = countryRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<CountryEntity> countries = countryRepository.findAll(Sort.by("name"));
 
         return countries.stream().map(this::convertToDTO).toList();
     }
 
     // 국가명 조회
     public List<CountryDTO> findAllCountriesByName(String name) {
-        List<CountryEntity> countries = countryRepository.findByNameContaining(name);
+        List<CountryEntity> countries = countryRepository.findByNameContaining(name, Sort.by("name"));
 
         return countries.stream().map(this::convertToDTO).toList();
     }

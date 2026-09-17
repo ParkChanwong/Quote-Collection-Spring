@@ -35,14 +35,14 @@ public class FieldService {
 
     // 전체 분야 조회
     public List<FieldDTO> findAllFields() {
-        List<FieldEntity> fields = fieldRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<FieldEntity> fields = fieldRepository.findAll(Sort.by("name"));
 
         return fields.stream().map(this::convertToDTO).toList();
     }
 
     // 분야명으로 분야 조회
     public List<FieldDTO> findAllFieldsByName(String name) {
-        List<FieldEntity> fields = fieldRepository.findByNameContaining(name);
+        List<FieldEntity> fields = fieldRepository.findByNameContaining(name, Sort.by("name"));
 
         return fields.stream().map(this::convertToDTO).toList();
     }

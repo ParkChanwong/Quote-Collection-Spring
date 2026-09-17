@@ -35,13 +35,13 @@ public class PeriodService {
 
     // 전체 시대 조회
     public List<PeriodDTO> findAllPeriods() {
-        List<PeriodEntity> periods = periodRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<PeriodEntity> periods = periodRepository.findAll(Sort.by("name"));
 
         return periods.stream().map(this::convertToDTO).toList();
     }
 
     public List<PeriodDTO> findAllPeriodsByName(String name) {
-        List<PeriodEntity> periods = periodRepository.findByNameContaining(name);
+        List<PeriodEntity> periods = periodRepository.findByNameContaining(name, Sort.by("name"));
 
         return periods.stream().map(this::convertToDTO).toList();
     }

@@ -84,28 +84,28 @@ public class PersonService {
 
     // 국가명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByCountryName(String countryName) {
-        List<PersonEntity> persons = personRepository.findByCountryNameContaining(countryName);
+        List<PersonEntity> persons = personRepository.findByCountryNameContaining(countryName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 시대명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByPeriodName(String periodName) {
-        List<PersonEntity> persons = personRepository.findByPeriodNameContaining(periodName);
+        List<PersonEntity> persons = personRepository.findByPeriodNameContaining(periodName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 분야명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByFieldName(String fieldName) {
-        List<PersonEntity> persons = personRepository.findByFieldNameContaining(fieldName);
+        List<PersonEntity> persons = personRepository.findByFieldNameContaining(fieldName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 인물명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByName(String name) {
-        List<PersonEntity> persons = personRepository.findByNameContaining(name);
+        List<PersonEntity> persons = personRepository.findByNameContaining(name, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
 
         return persons.stream().map(this::convertToDTO).toList();
     }
