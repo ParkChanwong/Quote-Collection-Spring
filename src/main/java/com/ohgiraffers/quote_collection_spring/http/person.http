@@ -3,13 +3,21 @@ GET http://localhost:8080/person
 Accept: application/json
 
 ### 국가명으로 인물 조회
-GET http://localhost:8080/person/country?country=대한
+GET http://localhost:8080/person/country?keyword=대한
 Accept: application/json
 
 ### 시대명으로 인물 조회
-GET http://localhost:8080/person/period?period=ad
+GET http://localhost:8080/person/period?keyword=ad
 Accept: application/json
 
 ### 분야명으로 인물 조회
-GET http://localhost:8080/person/field?field=사
+GET http://localhost:8080/person/field?keyword=사회
+Accept: application/json
+
+### 인물명으로 인물 조회
+GET http://localhost:8080/person/name?keyword=공자
+Accept: application/json
+
+### 인물 ID 단일 조회
+GET http://localhost:8080/person/1
 Accept: application/json
