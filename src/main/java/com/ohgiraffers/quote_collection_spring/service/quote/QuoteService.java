@@ -157,4 +157,12 @@ public class QuoteService {
         quote.setTheme(theme);
         quote.setQuote(quoteDTO.getQuote().trim());
     }
+
+    // 명언 삭제
+    @Transactional
+    public void deleteQuote(int id) {
+        QuoteEntity quote = quoteRepository.findById(id).orElseThrow(NotFoundQuoteException::new);
+
+        quoteRepository.delete(quote);
+    }
 }
