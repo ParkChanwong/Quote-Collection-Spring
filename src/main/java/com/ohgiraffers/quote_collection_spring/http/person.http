@@ -1,3 +1,15 @@
 ### 전체 인물 조회
 GET http://localhost:8080/person
 Accept: application/json
+
+### 국가명으로 인물 조회
+GET http://localhost:8080/person/country?country=대한
+Accept: application/json
+
+### 시대명으로 인물 조회
+GET http://localhost:8080/person/period?period=ad
+Accept: application/json
+
+### 분야명으로 인물 조회
+GET http://localhost:8080/person/field?field=사
+Accept: application/json
