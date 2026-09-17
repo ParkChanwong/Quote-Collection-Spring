@@ -11,6 +11,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFou
 import com.ohgiraffers.quote_collection_spring.exception.category.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.person.EmptyPersonException;
+import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
 import com.ohgiraffers.quote_collection_spring.repository.category.CountryRepository;
 import com.ohgiraffers.quote_collection_spring.repository.category.FieldRepository;
 import com.ohgiraffers.quote_collection_spring.repository.category.PeriodRepository;
@@ -113,7 +114,7 @@ public class PersonService {
     public PersonResponseDTO findPersonById(int id) {
         PersonEntity person = personRepository
                 .findById(id)
-                .orElseThrow(NotFoundPeriodException::new);
+                .orElseThrow(NotFoundPersonException::new);
 
         return convertToDTO(person);
     }
@@ -137,7 +138,7 @@ public class PersonService {
     public void modifyPerson(int id, PersonRequestDTO personDTO) {
         PersonEntity person = personRepository
                 .findById(id)
-                .orElseThrow(NotFoundPeriodException::new);
+                .orElseThrow(NotFoundPersonException::new);
 
         CountryEntity country = findCountryOrThrow(personDTO.getCountryId());
         PeriodEntity period = findPeriodOrThrow(personDTO.getPeriodId());
@@ -151,5 +152,15 @@ public class PersonService {
         person.setPeriod(period);
         person.setField(field);
         person.setName(personDTO.getName());
+    }
+
+    // 인물 삭제
+    @Transactional
+    public void deletePerson(int id) {
+        PersonEntity person = personRepository
+                .findById(id)
+                .orElseThrow(NotFoundPersonException::new);
+
+        personRepository.delete(person);
     }
 }
