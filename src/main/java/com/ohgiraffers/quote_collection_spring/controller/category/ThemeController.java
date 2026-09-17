@@ -30,7 +30,7 @@ public class ThemeController {
     // 주제명으로 주제 조회
     @GetMapping("/name")
     public ResponseEntity<ResponseList<ThemeDTO>> findAllThemesByName(@RequestParam String keyword) {
-        List<ThemeDTO> themes = themeService.findAllThemesByName(keyword);
+        List<ThemeDTO> themes = themeService.findAllThemesByName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), themes));
     }

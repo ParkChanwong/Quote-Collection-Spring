@@ -57,7 +57,7 @@ public class PersonController {
     // 인물명으로 인물 조회
     @GetMapping("/name")
     public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByName(@RequestParam String keyword) {
-        List<PersonResponseDTO> persons = personService.findAllPersonsByName(keyword);
+        List<PersonResponseDTO> persons = personService.findAllPersonsByName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }

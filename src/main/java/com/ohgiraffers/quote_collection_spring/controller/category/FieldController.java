@@ -30,7 +30,7 @@ public class FieldController {
     // 분야명으로 분야 조회
     @GetMapping("/name")
     public ResponseEntity<ResponseList<FieldDTO>> findAllFieldsByName(@RequestParam String keyword) {
-        List<FieldDTO> fields = fieldService.findAllFieldsByName(keyword);
+        List<FieldDTO> fields = fieldService.findAllFieldsByName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), fields));
     }

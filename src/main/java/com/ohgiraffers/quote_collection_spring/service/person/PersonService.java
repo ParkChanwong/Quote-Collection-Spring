@@ -70,7 +70,7 @@ public class PersonService {
         personEntity.setCountry(countryEntity);
         personEntity.setPeriod(periodEntity);
         personEntity.setField(fieldEntity);
-        personEntity.setName(personRequestDTO.getName());
+        personEntity.setName(personRequestDTO.getName().trim());
 
         return personEntity;
     }
@@ -151,7 +151,7 @@ public class PersonService {
         person.setCountry(country);
         person.setPeriod(period);
         person.setField(field);
-        person.setName(personDTO.getName());
+        person.setName(personDTO.getName().trim());
     }
 
     // 인물 삭제

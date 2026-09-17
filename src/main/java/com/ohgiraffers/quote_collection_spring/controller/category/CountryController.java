@@ -32,7 +32,7 @@ public class CountryController {
     // 국가명으로 국가 조회
     @GetMapping("/name")
     public ResponseEntity<ResponseList<CountryDTO>> findAllCountriesByName(@RequestParam String keyword) {
-        List<CountryDTO> countries = countryService.findAllCountriesByName(keyword);
+        List<CountryDTO> countries = countryService.findAllCountriesByName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), countries));
     }
