@@ -89,4 +89,11 @@ public class PersonController {
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 수정 성공"));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle<String>> deletePerson(@PathVariable int id) {
+        personService.deletePerson(id);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 삭제 성공"));
+    }
 }
