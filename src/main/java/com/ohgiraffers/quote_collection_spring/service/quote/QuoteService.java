@@ -9,6 +9,7 @@ import com.ohgiraffers.quote_collection_spring.entity.quote.QuoteEntity;
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.EmptyQuoteException;
+import com.ohgiraffers.quote_collection_spring.exception.quote.NotFoundQuoteException;
 import com.ohgiraffers.quote_collection_spring.repository.category.ThemeRepository;
 import com.ohgiraffers.quote_collection_spring.repository.person.PersonRepository;
 import com.ohgiraffers.quote_collection_spring.repository.quote.QuoteRepository;
@@ -98,6 +99,15 @@ public class QuoteService {
         List<QuoteEntity> quotes = quoteRepository.findAllQuotesByQuoteContaining(keyword, QUOTE_SORT);
 
         return quotes.stream().map(this::convertToDTO).toList();
+    }
+
+    // 명언 ID 단일 조회
+    public QuoteResponseDTO findQuoteById(int quoteId) {
+        QuoteEntity quoteEntity = quoteRepository.
+                findById(quoteId).
+                orElseThrow(NotFoundQuoteException::new);
+
+        return convertToDTO(quoteEntity);
     }
 
     // 명언 등록
