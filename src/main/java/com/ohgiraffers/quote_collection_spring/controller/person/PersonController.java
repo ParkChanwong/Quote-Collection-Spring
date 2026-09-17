@@ -4,7 +4,6 @@ import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonRequestDTO;
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonResponseDTO;
-import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,6 +89,7 @@ public class PersonController {
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 수정 성공"));
     }
 
+    // 인물 삭제
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseSingle<String>> deletePerson(@PathVariable int id) {
         personService.deletePerson(id);

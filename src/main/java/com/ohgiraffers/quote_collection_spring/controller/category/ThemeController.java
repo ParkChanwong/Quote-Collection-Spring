@@ -21,15 +21,10 @@ public class ThemeController {
 
     // 전체 주제 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllThemes() {
+    public ResponseEntity<ResponseList<ThemeDTO>> findAllThemes() {
         List<ThemeDTO> themes = themeService.findAllThemes();
 
-        ResponseList responseList = new ResponseList(
-                HttpStatus.OK.value(),
-                themes
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), themes));
     }
 
     // 주제명으로 주제 조회
@@ -42,53 +37,33 @@ public class ThemeController {
 
     // 주제 ID 단일 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSingle> findThemeById(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<ThemeDTO>> findThemeById(@PathVariable int id) {
         ThemeDTO theme = themeService.findThemeById(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                theme
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), theme));
     }
 
     // 주제 등록
     @PostMapping
-    public ResponseEntity<ResponseSingle> saveTheme(@RequestBody ThemeDTO theme) {
+    public ResponseEntity<ResponseSingle<String>> saveTheme(@RequestBody ThemeDTO theme) {
         themeService.saveTheme(theme);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "주제 등록 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "주제 등록 성공"));
     }
 
     // 주제 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseSingle> modifyTheme(@PathVariable int id, @RequestBody ThemeDTO theme) {
+    public ResponseEntity<ResponseSingle<String>> modifyTheme(@PathVariable int id, @RequestBody ThemeDTO theme) {
         themeService.modifyTheme(id, theme);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "주제 수정 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "주제 수정 성공"));
     }
 
     // 주제 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseSingle> deleteTheme(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<String>> deleteTheme(@PathVariable int id) {
         themeService.deleteTheme(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "주제 삭제 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "주제 삭제 성공"));
     }
 }

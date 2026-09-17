@@ -21,73 +21,49 @@ public class FieldController {
 
     // 전체 분야 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllFields() {
+    public ResponseEntity<ResponseList<FieldDTO>> findAllFields() {
         List<FieldDTO> fields = fieldService.findAllFields();
 
-        ResponseList responseList = new ResponseList(
-                HttpStatus.OK.value(),
-                fields
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), fields));
     }
 
+    // 분야명으로 분야 조회
     @GetMapping("/name")
-    public ResponseEntity<ResponseSingle<FieldDTO>> findAllFieldsByName(@RequestParam String keyword) {
+    public ResponseEntity<ResponseList<FieldDTO>> findAllFieldsByName(@RequestParam String keyword) {
         List<FieldDTO> fields = fieldService.findAllFieldsByName(keyword);
 
-        return ResponseEntity.ok(new ResponseSingle(HttpStatus.OK.value(), fields));
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), fields));
     }
 
     // 분야 ID 단일 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSingle> findFieldById(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<FieldDTO>> findFieldById(@PathVariable int id) {
         FieldDTO fieldDTO = fieldService.findFieldById(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                fieldDTO
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), fieldDTO));
     }
 
     // 분야 등록
     @PostMapping
-    public ResponseEntity<ResponseSingle> saveField(@RequestBody FieldDTO fieldDTO) {
+    public ResponseEntity<ResponseSingle<String>> saveField(@RequestBody FieldDTO fieldDTO) {
         fieldService.saveField(fieldDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "분야 등록 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "분야 등록 성공"));
     }
 
     // 분야 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseSingle> modifyField(@PathVariable int id, @RequestBody FieldDTO fieldDTO) {
+    public ResponseEntity<ResponseSingle<String>> modifyField(@PathVariable int id, @RequestBody FieldDTO fieldDTO) {
         fieldService.modifyField(id, fieldDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "분야 수정 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "분야 수정 성공"));
     }
 
     // 분야 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseSingle> deleteField(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<String>> deleteField(@PathVariable int id) {
         fieldService.deleteField(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "분야 삭제 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "분야 삭제 성공"));
     }
 }

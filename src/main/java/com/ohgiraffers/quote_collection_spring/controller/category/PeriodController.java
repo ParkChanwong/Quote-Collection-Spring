@@ -23,15 +23,10 @@ public class PeriodController {
 
     // 전체 시대 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllPeriods() {
+    public ResponseEntity<ResponseList<PeriodDTO>> findAllPeriods() {
         List<PeriodDTO> periods = periodService.findAllPeriods();
 
-        ResponseList responseList = new ResponseList(
-                HttpStatus.OK.value(),
-                periods
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), periods));
     }
 
     // 시대명으로 시대 조회
@@ -44,53 +39,33 @@ public class PeriodController {
 
     // 시대 ID 단일 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSingle> findPeriodById(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<PeriodDTO>> findPeriodById(@PathVariable int id) {
         PeriodDTO periodDTO = periodService.findPeriodById(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                periodDTO
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), periodDTO));
     }
 
     // 시대 등록
     @PostMapping
-    public ResponseEntity<ResponseSingle> createPeriod(@RequestBody PeriodDTO periodDTO) {
+    public ResponseEntity<ResponseSingle<String>> createPeriod(@RequestBody PeriodDTO periodDTO) {
         periodService.savePeriod(periodDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "시대 등록 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "시대 등록 성공"));
     }
 
     // 시대 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseSingle> updatePeriod(@PathVariable int id, @RequestBody PeriodDTO periodDTO) {
+    public ResponseEntity<ResponseSingle<String>> updatePeriod(@PathVariable int id, @RequestBody PeriodDTO periodDTO) {
         periodService.modifyPeriod(id, periodDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "시대 수정 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "시대 수정 성공"));
     }
 
     // 시대 삭제
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseSingle> deletePeriod(@PathVariable int id) {
+    public ResponseEntity<ResponseSingle<String>> deletePeriod(@PathVariable int id) {
         periodService.deletePeriod(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "시대 삭제 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "시대 삭제 성공"));
     }
 }

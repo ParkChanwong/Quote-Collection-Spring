@@ -23,15 +23,10 @@ public class CountryController {
 
     // 전체 국가 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllCountries() {
+    public ResponseEntity<ResponseList<CountryDTO>> findAllCountries() {
         List<CountryDTO> countries = countryService.findAllCountries();
 
-        ResponseList responseList = new ResponseList(
-                HttpStatus.OK.value(),
-                countries
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), countries));
     }
 
     // 국가명으로 국가 조회
@@ -44,52 +39,32 @@ public class CountryController {
 
     // 국가 id 단일 조회
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseSingle> findCountryById(@PathVariable int id){
+    public ResponseEntity<ResponseSingle<CountryDTO>> findCountryById(@PathVariable int id){
         CountryDTO countryDTO = countryService.findCountryById(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                countryDTO
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), countryDTO));
     }
 
     // 국가 등록
     @PostMapping
-    public ResponseEntity<ResponseSingle> updateCountry(@RequestBody CountryDTO countryDTO){
+    public ResponseEntity<ResponseSingle<String>> updateCountry(@RequestBody CountryDTO countryDTO){
         countryService.saveCountry(countryDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "국가 등록 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "국가 등록 성공"));
     }
 
     // 국가 수정
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseSingle> updateCountry(@PathVariable int id, @RequestBody CountryDTO countryDTO){
+    public ResponseEntity<ResponseSingle<String>> updateCountry(@PathVariable int id, @RequestBody CountryDTO countryDTO){
         countryService.modifyCountry(id, countryDTO);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "국가 수정 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "국가 수정 완료"));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseSingle> deleteCountry(@PathVariable int id){
+    public ResponseEntity<ResponseSingle<String>> deleteCountry(@PathVariable int id){
         countryService.deleteCountry(id);
 
-        ResponseSingle responseSingle = new ResponseSingle(
-                HttpStatus.OK.value(),
-                "국가 삭제 성공"
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "국가 삭제 완료"));
     }
 }
