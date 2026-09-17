@@ -34,6 +34,14 @@ public class PeriodController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    // 시대명으로 시대 조회
+    @GetMapping("/name")
+    public ResponseEntity<ResponseList<PeriodDTO>> findPeriodByName(@RequestParam String keyword) {
+        List<PeriodDTO> periods = periodService.findAllPeriodsByName(keyword);
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), periods));
+    }
+
     // 시대 ID 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findPeriodById(@PathVariable int id) {

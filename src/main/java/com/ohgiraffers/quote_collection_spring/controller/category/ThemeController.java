@@ -32,6 +32,14 @@ public class ThemeController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    // 주제명으로 주제 조회
+    @GetMapping("/name")
+    public ResponseEntity<ResponseList<ThemeDTO>> findAllThemesByName(@RequestParam String keyword) {
+        List<ThemeDTO> themes = themeService.findAllThemesByName(keyword);
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), themes));
+    }
+
     // 주제 ID 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findThemeById(@PathVariable int id) {

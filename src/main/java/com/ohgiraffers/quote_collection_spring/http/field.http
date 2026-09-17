@@ -2,6 +2,10 @@
 GET http://localhost:8080/field
 Accept: application/json
 
+### 분야명으로 분야 조회
+GET http://localhost:8080/field/name?keyword=사회
+Accept: application/json
+
 ### 분야 ID 단일 조회
 GET http://localhost:8080/field/1
 Accept: application/json

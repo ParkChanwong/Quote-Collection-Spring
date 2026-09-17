@@ -41,6 +41,13 @@ public class ThemeService {
         return themes.stream().map(this::convertToDTO).toList();
     }
 
+    // 주제명으로 주제 조회
+    public List<ThemeDTO> findAllThemesByName(String name) {
+        List<ThemeEntity> themes = themeRepository.findByNameContaining(name);
+
+        return themes.stream().map(this::convertToDTO).toList();
+    }
+
     // 주제 ID 단일 조회
     public ThemeDTO findThemeById(int id) {
         ThemeEntity theme = themeRepository

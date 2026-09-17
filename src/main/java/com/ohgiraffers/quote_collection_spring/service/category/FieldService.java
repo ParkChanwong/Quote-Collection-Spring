@@ -40,6 +40,13 @@ public class FieldService {
         return fields.stream().map(this::convertToDTO).toList();
     }
 
+    // 분야명으로 분야 조회
+    public List<FieldDTO> findAllFieldsByName(String name) {
+        List<FieldEntity> fields = fieldRepository.findByNameContaining(name);
+
+        return fields.stream().map(this::convertToDTO).toList();
+    }
+
     // 분야 ID 단일 조회
     public FieldDTO findFieldById(int id) {
         FieldEntity fieldEntity = fieldRepository

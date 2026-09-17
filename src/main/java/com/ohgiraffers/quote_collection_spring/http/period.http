@@ -2,6 +2,10 @@
 GET http://localhost:8080/period
 Accept: application/json
 
+### 시대명으로 시대 조회
+GET http://localhost:8080/period/name?keyword=17
+Accept: application/json
+
 ### 시대 ID 단일 조회
 GET http://localhost:8080/period/1
 Accept: application/json

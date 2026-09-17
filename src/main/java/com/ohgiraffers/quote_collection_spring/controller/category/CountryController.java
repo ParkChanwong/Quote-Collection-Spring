@@ -34,6 +34,14 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    // 국가명으로 국가 조회
+    @GetMapping("/name")
+    public ResponseEntity<ResponseList<CountryDTO>> findAllCountriesByName(@RequestParam String keyword) {
+        List<CountryDTO> countries = countryService.findAllCountriesByName(keyword);
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), countries));
+    }
+
     // 국가 id 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findCountryById(@PathVariable int id){

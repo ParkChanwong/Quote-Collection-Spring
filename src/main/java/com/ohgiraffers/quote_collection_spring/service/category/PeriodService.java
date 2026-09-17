@@ -40,6 +40,12 @@ public class PeriodService {
         return periods.stream().map(this::convertToDTO).toList();
     }
 
+    public List<PeriodDTO> findAllPeriodsByName(String name) {
+        List<PeriodEntity> periods = periodRepository.findByNameContaining(name);
+
+        return periods.stream().map(this::convertToDTO).toList();
+    }
+
     // 시대 ID 단일 조회
     public PeriodDTO findPeriodById(int id) {
         PeriodEntity period =  periodRepository

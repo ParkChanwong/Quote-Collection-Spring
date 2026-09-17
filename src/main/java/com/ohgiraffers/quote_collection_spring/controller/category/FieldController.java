@@ -32,6 +32,13 @@ public class FieldController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    @GetMapping("/name")
+    public ResponseEntity<ResponseSingle<FieldDTO>> findAllFieldsByName(@RequestParam String keyword) {
+        List<FieldDTO> fields = fieldService.findAllFieldsByName(keyword);
+
+        return ResponseEntity.ok(new ResponseSingle(HttpStatus.OK.value(), fields));
+    }
+
     // 분야 ID 단일 조회
     @GetMapping("/{id}")
     public ResponseEntity<ResponseSingle> findFieldById(@PathVariable int id) {

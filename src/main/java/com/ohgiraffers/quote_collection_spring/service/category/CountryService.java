@@ -41,6 +41,13 @@ public class CountryService {
         return countries.stream().map(this::convertToDTO).toList();
     }
 
+    // 국가명 조회
+    public List<CountryDTO> findAllCountriesByName(String name) {
+        List<CountryEntity> countries = countryRepository.findByNameContaining(name);
+
+        return countries.stream().map(this::convertToDTO).toList();
+    }
+
     // 국가 id 단일 조회
     public CountryDTO findCountryById(int id){
         CountryEntity countryEntity = countryRepository

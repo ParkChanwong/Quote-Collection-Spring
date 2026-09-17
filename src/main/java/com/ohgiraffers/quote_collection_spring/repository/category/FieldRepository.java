@@ -4,7 +4,13 @@ import com.ohgiraffers.quote_collection_spring.entity.category.FieldEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FieldRepository extends JpaRepository<FieldEntity, Integer> {
+    // 분야명 조회
+    List<FieldEntity> findByNameContaining(String name);
+
+    // 중복 체크
     boolean existsByName(String name);
 }
