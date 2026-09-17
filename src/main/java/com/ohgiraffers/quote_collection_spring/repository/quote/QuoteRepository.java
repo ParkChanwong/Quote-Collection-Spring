@@ -11,4 +11,7 @@ import java.util.List;
 public interface QuoteRepository extends JpaRepository<QuoteEntity, Integer> {
     // 인물명 조회
     List<QuoteEntity> findAllQuotesByPersonNameContaining(String personName, Sort sort);
+
+    // 주제명 조회
+    List<QuoteEntity> findAllQuotesByThemeNameContaining(String themeName, Sort sort);
 }
