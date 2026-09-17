@@ -1,6 +1,7 @@
 package com.ohgiraffers.quote_collection_spring.service.person;
 
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonResponseDTO;
+import com.ohgiraffers.quote_collection_spring.entity.category.CountryEntity;
 import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.repository.person.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,30 @@ public class PersonService {
         );
     }
 
+    // 전체 인물 조회
     public List<PersonResponseDTO> findAllPersons() {
         List<PersonEntity> persons = personRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+
+        return persons.stream().map(this::convertToDTO).toList();
+    }
+
+    // 국가명으로 인물 조회
+    public List<PersonResponseDTO> findAllPersonsByCountryName(String countryName) {
+        List<PersonEntity> persons = personRepository.findByCountryNameContaining(countryName);
+
+        return persons.stream().map(this::convertToDTO).toList();
+    }
+
+    // 시대명으로 인물 조회
+    public List<PersonResponseDTO> findAllPersonsByPeriodName(String periodName) {
+        List<PersonEntity> persons = personRepository.findByPeriodNameContaining(periodName);
+
+        return persons.stream().map(this::convertToDTO).toList();
+    }
+
+    // 분야명으로 인물 조회
+    public List<PersonResponseDTO> findAllPersonsByFieldName(String fieldName) {
+        List<PersonEntity> persons = personRepository.findByFieldNameContaining(fieldName);
 
         return persons.stream().map(this::convertToDTO).toList();
     }
