@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 public class CountryService {
+    private static final Sort COUNTRY_SORT = Sort.by("name");
     private final CountryRepository countryRepository;
 
     @Autowired
@@ -36,14 +37,14 @@ public class CountryService {
     // 전체 국가 조회
     public List<CountryDTO> findAllCountries() {
         // Sort.by로 국가명 가나다 순으로 정렬
-        List<CountryEntity> countries = countryRepository.findAll(Sort.by("name"));
+        List<CountryEntity> countries = countryRepository.findAll(COUNTRY_SORT);
 
         return countries.stream().map(this::convertToDTO).toList();
     }
 
     // 국가명 조회
     public List<CountryDTO> findAllCountriesByName(String name) {
-        List<CountryEntity> countries = countryRepository.findByNameContaining(name, Sort.by("name"));
+        List<CountryEntity> countries = countryRepository.findByNameContaining(name, COUNTRY_SORT);
 
         return countries.stream().map(this::convertToDTO).toList();
     }

@@ -15,6 +15,8 @@ import java.util.List;
 
 @Service
 public class PeriodService {
+    private static final Sort PERIOD_SORT = Sort.by("name");
+
     private final PeriodRepository periodRepository;
 
     @Autowired
@@ -35,13 +37,13 @@ public class PeriodService {
 
     // 전체 시대 조회
     public List<PeriodDTO> findAllPeriods() {
-        List<PeriodEntity> periods = periodRepository.findAll(Sort.by("name"));
+        List<PeriodEntity> periods = periodRepository.findAll(PERIOD_SORT);
 
         return periods.stream().map(this::convertToDTO).toList();
     }
 
     public List<PeriodDTO> findAllPeriodsByName(String name) {
-        List<PeriodEntity> periods = periodRepository.findByNameContaining(name, Sort.by("name"));
+        List<PeriodEntity> periods = periodRepository.findByNameContaining(name, PERIOD_SORT);
 
         return periods.stream().map(this::convertToDTO).toList();
     }

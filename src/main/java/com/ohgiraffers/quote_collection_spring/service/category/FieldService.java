@@ -15,6 +15,8 @@ import java.util.List;
 
 @Service
 public class FieldService {
+    private static final Sort FIELD_SORT = Sort.by("name");
+
     private final FieldRepository fieldRepository;
 
     @Autowired
@@ -35,14 +37,14 @@ public class FieldService {
 
     // 전체 분야 조회
     public List<FieldDTO> findAllFields() {
-        List<FieldEntity> fields = fieldRepository.findAll(Sort.by("name"));
+        List<FieldEntity> fields = fieldRepository.findAll(FIELD_SORT);
 
         return fields.stream().map(this::convertToDTO).toList();
     }
 
     // 분야명으로 분야 조회
     public List<FieldDTO> findAllFieldsByName(String name) {
-        List<FieldEntity> fields = fieldRepository.findByNameContaining(name, Sort.by("name"));
+        List<FieldEntity> fields = fieldRepository.findByNameContaining(name, FIELD_SORT);
 
         return fields.stream().map(this::convertToDTO).toList();
     }

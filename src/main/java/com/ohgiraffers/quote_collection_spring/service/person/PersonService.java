@@ -6,7 +6,6 @@ import com.ohgiraffers.quote_collection_spring.entity.category.CountryEntity;
 import com.ohgiraffers.quote_collection_spring.entity.category.FieldEntity;
 import com.ohgiraffers.quote_collection_spring.entity.category.PeriodEntity;
 import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
-import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
@@ -25,6 +24,8 @@ import java.util.List;
 
 @Service
 public class PersonService {
+    private static final Sort PERSON_SORT = Sort.by("name", "countryName", "fieldName", "periodName", "id");
+
     private final PersonRepository personRepository;
     private final CountryRepository countryRepository;
     private final PeriodRepository periodRepository;
@@ -77,35 +78,35 @@ public class PersonService {
 
     // 전체 인물 조회
     public List<PersonResponseDTO> findAllPersons() {
-        List<PersonEntity> persons = personRepository.findAll(Sort.by("name", "countryName", "fieldName", "periodName", "id"));
+        List<PersonEntity> persons = personRepository.findAll(PERSON_SORT);
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 국가명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByCountryName(String countryName) {
-        List<PersonEntity> persons = personRepository.findByCountryNameContaining(countryName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
+        List<PersonEntity> persons = personRepository.findByCountryNameContaining(countryName, PERSON_SORT);
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 시대명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByPeriodName(String periodName) {
-        List<PersonEntity> persons = personRepository.findByPeriodNameContaining(periodName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
+        List<PersonEntity> persons = personRepository.findByPeriodNameContaining(periodName, PERSON_SORT);
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 분야명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByFieldName(String fieldName) {
-        List<PersonEntity> persons = personRepository.findByFieldNameContaining(fieldName, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
+        List<PersonEntity> persons = personRepository.findByFieldNameContaining(fieldName, PERSON_SORT);
 
         return persons.stream().map(this::convertToDTO).toList();
     }
 
     // 인물명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByName(String name) {
-        List<PersonEntity> persons = personRepository.findByNameContaining(name, Sort.by("name", "countryName", "fieldName", "periodName", "id"));
+        List<PersonEntity> persons = personRepository.findByNameContaining(name, PERSON_SORT);
 
         return persons.stream().map(this::convertToDTO).toList();
     }

@@ -16,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class ThemeService {
+    private static final Sort THEME_SORT = Sort.by("name");
+
     private final ThemeRepository themeRepository;
 
     @Autowired
@@ -36,14 +38,14 @@ public class ThemeService {
 
     // 전체 주제 조회
     public List<ThemeDTO> findAllThemes() {
-        List<ThemeEntity> themes = themeRepository.findAll(Sort.by("name"));
+        List<ThemeEntity> themes = themeRepository.findAll(THEME_SORT);
 
         return themes.stream().map(this::convertToDTO).toList();
     }
 
     // 주제명으로 주제 조회
     public List<ThemeDTO> findAllThemesByName(String name) {
-        List<ThemeEntity> themes = themeRepository.findByNameContaining(name, Sort.by("name"));
+        List<ThemeEntity> themes = themeRepository.findByNameContaining(name, THEME_SORT);
 
         return themes.stream().map(this::convertToDTO).toList();
     }
