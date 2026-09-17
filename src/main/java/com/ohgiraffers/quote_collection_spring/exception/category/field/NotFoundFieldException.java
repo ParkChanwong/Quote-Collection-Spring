@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.exception.category.Field;
+package com.ohgiraffers.quote_collection_spring.exception.category.field;
 
 public class NotFoundFieldException extends RuntimeException {
     public NotFoundFieldException(String message) {
