@@ -31,5 +31,10 @@ public class QuoteService {
         return quotes.stream().map(this::convertToDTO).toList();
     }
 
+    // 인물명으로 명언 조회
+    public List<QuoteResponseDTO> findAllByPersonName(String personName) {
+        List<QuoteEntity> quotes = quoteRepository.findAllQuotesByPersonNameContaining(personName, QUOTE_SORT);
 
+        return quotes.stream().map(this::convertToDTO).toList();
+    }
 }
