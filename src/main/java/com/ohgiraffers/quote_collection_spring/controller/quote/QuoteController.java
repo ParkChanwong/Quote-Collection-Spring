@@ -46,4 +46,12 @@ public class QuoteController {
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
     }
+
+    // 키워드로 명언 조회
+    @GetMapping("/content")
+    public ResponseEntity<ResponseList<QuoteResponseDTO>> findQuotesByKeyword(@RequestParam String keyword) {
+        List<QuoteResponseDTO> quotes = quoteService.findAllQuotesByKeyword(keyword.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
+    }
 }
