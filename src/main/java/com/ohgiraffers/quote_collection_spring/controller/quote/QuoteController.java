@@ -1,15 +1,14 @@
 package com.ohgiraffers.quote_collection_spring.controller.quote;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
+import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
+import com.ohgiraffers.quote_collection_spring.dto.quote.QuoteRequestDTO;
 import com.ohgiraffers.quote_collection_spring.dto.quote.QuoteResponseDTO;
 import com.ohgiraffers.quote_collection_spring.service.quote.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +52,13 @@ public class QuoteController {
         List<QuoteResponseDTO> quotes = quoteService.findAllQuotesByKeyword(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
+    }
+
+    // 명언 등록
+    @PostMapping
+    public ResponseEntity<ResponseSingle<String>> saveQuote(@RequestBody QuoteRequestDTO quoteRequestDTO) {
+        quoteService.saveQuote(quoteRequestDTO);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "명언 등록 성공"));
     }
 }
