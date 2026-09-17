@@ -56,4 +56,11 @@ public class PersonService {
 
         return persons.stream().map(this::convertToDTO).toList();
     }
+
+    // 인물명으로 인물 조회
+    public List<PersonResponseDTO> findAllPersonsByName(String name) {
+        List<PersonEntity> persons = personRepository.findByNameContaining(name);
+
+        return persons.stream().map(this::convertToDTO).toList();
+    }
 }
