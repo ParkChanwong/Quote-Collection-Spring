@@ -63,6 +63,20 @@ public class ThemeService {
     }
 
     // 주제 수정
+    @Transactional
+    public void modifyTheme(int id, ThemeDTO themeDTO) {
+        ThemeEntity theme = themeRepository
+                .findById(id)
+                .orElseThrow(NotFoundThemeException::new);
+
+        if (themeDTO.getName() == null || themeDTO.getName().isBlank()) {
+            throw new EmptyThemeException();
+        } else if (themeRepository.existsByName(themeDTO.getName())) {
+            throw new DuplicateThemeException();
+        }
+
+        theme.setName(themeDTO.getName());
+    }
 
     // 주제 삭제
 }
