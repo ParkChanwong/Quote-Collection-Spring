@@ -4,6 +4,7 @@ import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.ThemeDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.ThemeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ThemeController {
     private final ThemeService themeService;
 
+    @Autowired
     public ThemeController(ThemeService themeService) {
         this.themeService = themeService;
     }

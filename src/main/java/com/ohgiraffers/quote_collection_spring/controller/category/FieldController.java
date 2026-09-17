@@ -4,6 +4,7 @@ import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.FieldService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class FieldController {
     private final FieldService fieldService;
 
+    @Autowired
     public FieldController(FieldService fieldService) {
         this.fieldService = fieldService;
     }
