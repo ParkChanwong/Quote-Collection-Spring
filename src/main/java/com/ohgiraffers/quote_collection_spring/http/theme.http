@@ -1,3 +1,7 @@
 ### 전체 주제 조회
 GET http://localhost:8080/theme
 Accept: application/json
+
+### 주제 ID 단일 조회
+GET http://localhost:8080/theme/1
+Accept: application/json
