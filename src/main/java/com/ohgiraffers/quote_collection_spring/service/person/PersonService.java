@@ -3,6 +3,7 @@ package com.ohgiraffers.quote_collection_spring.service.person;
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonResponseDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.CountryEntity;
 import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
+import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
 import com.ohgiraffers.quote_collection_spring.repository.person.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -62,5 +63,14 @@ public class PersonService {
         List<PersonEntity> persons = personRepository.findByNameContaining(name);
 
         return persons.stream().map(this::convertToDTO).toList();
+    }
+
+    // 인물명 ID 단일 조회
+    public PersonResponseDTO findPersonById(int id) {
+        PersonEntity person = personRepository
+                .findById(id)
+                .orElseThrow(NotFoundPeriodException::new);
+
+        return convertToDTO(person);
     }
 }
