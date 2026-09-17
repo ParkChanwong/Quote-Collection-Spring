@@ -59,6 +59,17 @@ public class ThemeController {
     }
 
     // 주제 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle> modifyTheme(@PathVariable int id, @RequestBody ThemeDTO theme) {
+        themeService.modifyTheme(id, theme);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "주제 수정 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 
     // 주제 삭제
 }
