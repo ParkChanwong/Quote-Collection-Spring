@@ -6,9 +6,7 @@ import com.ohgiraffers.quote_collection_spring.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,15 +20,35 @@ public class PersonController {
         this.personService = personService;
     }
 
+    // 전체 인물 조회
     @GetMapping
-    public ResponseEntity<ResponseList> findAllPersons() {
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findAllPersons() {
         List<PersonResponseDTO> persons = personService.findAllPersons();
 
-        ResponseList<PersonResponseDTO> responseList = new ResponseList<>(
-                HttpStatus.OK.value(),
-                persons
-        );
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
 
-        return ResponseEntity.ok(responseList);
+    // 국가명으로 인물 조회
+    @GetMapping("/country")
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByCountry(@RequestParam String country) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByCountryName(country.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
+
+    // 시대명으로 인물 조회
+    @GetMapping("/period")
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByPeriod(@RequestParam String period) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByPeriodName(period.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
+
+    // 분야명으로 인물 조회
+    @GetMapping("/field")
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByField(@RequestParam String field) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByFieldName(field.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }
 }
