@@ -21,3 +21,14 @@ Accept: application/json
 ### 인물 ID 단일 조회
 GET http://localhost:8080/person/1
 Accept: application/json
+
+### 인물 등록
+POST http://localhost:8080/person
+Content-Type: application/json
+
+{
+  "countryId": 1,
+  "periodId": 1,
+  "fieldId": 1,
+  "name": "test"
+}
