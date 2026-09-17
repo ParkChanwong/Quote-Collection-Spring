@@ -54,6 +54,14 @@ public class QuoteController {
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
     }
 
+    // 명언 ID 단일 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSingle<QuoteResponseDTO>> findQuoteById(@PathVariable int id) {
+        QuoteResponseDTO quote = quoteService.findQuoteById(id);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), quote));
+    }
+
     // 명언 등록
     @PostMapping
     public ResponseEntity<ResponseSingle<String>> saveQuote(@RequestBody QuoteRequestDTO quoteRequestDTO) {
