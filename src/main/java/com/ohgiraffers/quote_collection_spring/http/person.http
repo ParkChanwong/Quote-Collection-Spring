@@ -43,3 +43,6 @@ Content-Type: application/json
   "fieldId": 1,
   "name": "test"
 }
+
+### 인물 삭제
+DELETE http://localhost:8080/person/11
