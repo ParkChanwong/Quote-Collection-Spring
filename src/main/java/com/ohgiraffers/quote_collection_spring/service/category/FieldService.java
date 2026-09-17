@@ -54,7 +54,7 @@ public class FieldService {
     public void saveField(FieldDTO fieldDTO) {
         if (fieldDTO.getName() == null || fieldDTO.getName().isBlank()) {
             throw new EmptyFieldException();
-        } else if (fieldRepository.existsByName(fieldDTO.getName())) {
+        } else if (fieldRepository.existsByName(fieldDTO.getName().trim())) {
             throw new DuplicateFieldException();
         }
 

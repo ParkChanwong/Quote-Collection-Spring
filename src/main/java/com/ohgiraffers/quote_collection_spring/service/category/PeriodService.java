@@ -54,7 +54,7 @@ public class PeriodService {
     public void savePeriod(PeriodDTO periodDTO) {
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
-        } else if (periodRepository.existsByName(periodDTO.getName())) {
+        } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
             throw new DuplicateCountryException();
         }
 

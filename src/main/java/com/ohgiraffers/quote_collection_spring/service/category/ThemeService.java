@@ -55,7 +55,7 @@ public class ThemeService {
     public void saveTheme(ThemeDTO themeDTO) {
         if (themeDTO.getName() == null || themeDTO.getName().isBlank()) {
             throw new EmptyThemeException();
-        } else if (themeRepository.existsByName(themeDTO.getName())) {
+        } else if (themeRepository.existsByName(themeDTO.getName().trim())) {
             throw new DuplicateThemeException();
         }
 
