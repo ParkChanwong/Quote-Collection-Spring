@@ -71,7 +71,7 @@ public class ThemeService {
 
         if (themeDTO.getName() == null || themeDTO.getName().isBlank()) {
             throw new EmptyThemeException();
-        } else if (themeRepository.existsByName(themeDTO.getName())) {
+        } else if (themeRepository.existsByName(themeDTO.getName().trim())) {
             throw new DuplicateThemeException();
         }
 

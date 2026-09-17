@@ -71,7 +71,7 @@ public class CountryService {
 
         if (countryDTO.getName() == null || countryDTO.getName().isBlank()){
             throw new EmptyCountryException();
-        } else if (countryRepository.existsByName(countryDTO.getName())){
+        } else if (countryRepository.existsByName(countryDTO.getName().trim())){
             throw new DuplicateCountryException();
         }
 

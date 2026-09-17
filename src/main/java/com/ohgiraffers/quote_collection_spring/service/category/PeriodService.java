@@ -69,7 +69,7 @@ public class PeriodService {
                 .orElseThrow(NotFoundPeriodException::new);
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
-        } else if (periodRepository.existsByName(periodDTO.getName())) {
+        } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
             throw new DuplicateCountryException();
         }
 
