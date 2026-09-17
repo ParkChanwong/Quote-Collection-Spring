@@ -2,6 +2,7 @@ package com.ohgiraffers.quote_collection_spring.controller.person;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
 import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
+import com.ohgiraffers.quote_collection_spring.dto.person.PersonRequestDTO;
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonResponseDTO;
 import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.service.person.PersonService;
@@ -68,5 +69,13 @@ public class PersonController {
         PersonResponseDTO person = personService.findPersonById(id);
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), person));
+    }
+
+    // 인물 등록
+    @PostMapping
+    public ResponseEntity<ResponseSingle<String>> savePerson(@RequestBody PersonRequestDTO person) {
+        personService.savePerson(person);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 등록 성공"));
     }
 }
