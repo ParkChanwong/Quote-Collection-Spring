@@ -79,4 +79,12 @@ public class ThemeService {
     }
 
     // 주제 삭제
+    @Transactional
+    public void deleteTheme(int id) {
+        ThemeEntity theme = themeRepository
+                .findById(id)
+                .orElseThrow(NotFoundThemeException::new);
+
+        themeRepository.delete(theme);
+    }
 }
