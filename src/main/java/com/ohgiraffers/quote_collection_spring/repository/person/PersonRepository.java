@@ -16,4 +16,7 @@ public interface PersonRepository extends JpaRepository<PersonEntity, Integer> {
 
     // 분야명으로 인물 조회
     List<PersonEntity> findByFieldNameContaining(String fieldName);
+
+    // 인물명으로 인물 조회
+    List<PersonEntity> findByNameContaining(String name);
 }
