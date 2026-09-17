@@ -1,7 +1,6 @@
 package com.ohgiraffers.quote_collection_spring.dto.person;
 
 public class PersonRequestDTO {
-    private int id;
     private int countryId;
     private int periodId;
     private int fieldId;
@@ -9,20 +8,11 @@ public class PersonRequestDTO {
 
     public PersonRequestDTO() {}
 
-    public PersonRequestDTO(int id, int countryId, int periodId, int fieldId, String name) {
-        this.id = id;
+    public PersonRequestDTO(int countryId, int periodId, int fieldId, String name) {
         this.countryId = countryId;
         this.periodId = periodId;
         this.fieldId = fieldId;
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getCountryId() {
@@ -60,8 +50,7 @@ public class PersonRequestDTO {
     @Override
     public String toString() {
         return "PersonRequestDTO{" +
-                "id=" + id +
-                ", countryId=" + countryId +
+                "countryId=" + countryId +
                 ", periodId=" + periodId +
                 ", fieldId=" + fieldId +
                 ", name='" + name + '\'' +
