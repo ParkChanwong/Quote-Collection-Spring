@@ -131,4 +131,25 @@ public class PersonService {
 
         personRepository.save(convertToEntity(personDTO, country, period, field));
     }
+
+    // 인물 수정
+    @Transactional
+    public void modifyPerson(int id, PersonRequestDTO personDTO) {
+        PersonEntity person = personRepository
+                .findById(id)
+                .orElseThrow(NotFoundPeriodException::new);
+
+        CountryEntity country = findCountryOrThrow(personDTO.getCountryId());
+        PeriodEntity period = findPeriodOrThrow(personDTO.getPeriodId());
+        FieldEntity field = findFieldOrThrow(personDTO.getFieldId());
+
+        if (personDTO.getName() == null || personDTO.getName().isBlank()) {
+            throw new EmptyPersonException();
+        }
+
+        person.setCountry(country);
+        person.setPeriod(period);
+        person.setField(field);
+        person.setName(personDTO.getName());
+    }
 }
