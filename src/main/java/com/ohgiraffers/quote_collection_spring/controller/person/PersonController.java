@@ -30,24 +30,31 @@ public class PersonController {
 
     // 국가명으로 인물 조회
     @GetMapping("/country")
-    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByCountry(@RequestParam String country) {
-        List<PersonResponseDTO> persons = personService.findAllPersonsByCountryName(country.trim());
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByCountry(@RequestParam String keyword) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByCountryName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }
 
     // 시대명으로 인물 조회
     @GetMapping("/period")
-    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByPeriod(@RequestParam String period) {
-        List<PersonResponseDTO> persons = personService.findAllPersonsByPeriodName(period.trim());
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByPeriod(@RequestParam String keyword) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByPeriodName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }
 
     // 분야명으로 인물 조회
     @GetMapping("/field")
-    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByField(@RequestParam String field) {
-        List<PersonResponseDTO> persons = personService.findAllPersonsByFieldName(field.trim());
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByField(@RequestParam String keyword) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByFieldName(keyword.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByName(@RequestParam String keyword) {
+        List<PersonResponseDTO> persons = personService.findAllPersonsByName(keyword);
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }
