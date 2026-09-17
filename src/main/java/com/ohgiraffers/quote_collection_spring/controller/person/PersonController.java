@@ -78,4 +78,15 @@ public class PersonController {
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 등록 성공"));
     }
+
+    // 인물 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle<String>> updatePerson(
+            @PathVariable int id,
+            @RequestBody PersonRequestDTO person
+    ) {
+        personService.modifyPerson(id, person);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "인물 수정 성공"));
+    }
 }
