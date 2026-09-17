@@ -72,4 +72,15 @@ public class ThemeController {
     }
 
     // 주제 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle> deleteTheme(@PathVariable int id) {
+        themeService.deleteTheme(id);
+
+        ResponseSingle responseSingle = new ResponseSingle(
+                HttpStatus.OK.value(),
+                "주제 삭제 성공"
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseSingle);
+    }
 }
