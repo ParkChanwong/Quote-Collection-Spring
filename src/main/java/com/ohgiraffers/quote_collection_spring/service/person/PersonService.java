@@ -66,7 +66,12 @@ public class PersonService {
         return fieldRepository.findById(fieldId).orElseThrow(NotFoundFieldException::new);
     }
 
-    private PersonEntity convertToEntity(PersonRequestDTO personRequestDTO, CountryEntity countryEntity, PeriodEntity periodEntity, FieldEntity fieldEntity) {
+    private PersonEntity convertToEntity(
+            PersonRequestDTO personRequestDTO,
+            CountryEntity countryEntity,
+            PeriodEntity periodEntity,
+            FieldEntity fieldEntity
+    ) {
         PersonEntity personEntity = new PersonEntity();
         personEntity.setCountry(countryEntity);
         personEntity.setPeriod(periodEntity);
