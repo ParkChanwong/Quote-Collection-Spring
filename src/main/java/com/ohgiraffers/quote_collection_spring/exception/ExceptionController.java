@@ -16,6 +16,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFound
 import com.ohgiraffers.quote_collection_spring.exception.person.EmptyPersonException;
 import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
 import com.ohgiraffers.quote_collection_spring.exception.quote.EmptyQuoteException;
+import com.ohgiraffers.quote_collection_spring.exception.quote.NotFoundQuoteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,7 +30,8 @@ public class ExceptionController {
             NotFoundPeriodException.class,
             NotFoundFieldException.class,
             NotFoundThemeException.class,
-            NotFoundPersonException.class
+            NotFoundPersonException.class,
+            NotFoundQuoteException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
