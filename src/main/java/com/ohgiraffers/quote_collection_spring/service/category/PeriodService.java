@@ -28,7 +28,7 @@ public class PeriodService {
 
     public PeriodEntity convertToEntity(PeriodDTO periodDTO) {
         PeriodEntity periodEntity = new PeriodEntity();
-        periodEntity.setName(periodDTO.getName());
+        periodEntity.setName(periodDTO.getName().trim());
 
         return periodEntity;
     }
@@ -54,7 +54,7 @@ public class PeriodService {
     public void savePeriod(PeriodDTO periodDTO) {
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
-        } else if (periodRepository.existsByName(periodDTO.getName())) {
+        } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
             throw new DuplicateCountryException();
         }
 
@@ -69,11 +69,11 @@ public class PeriodService {
                 .orElseThrow(NotFoundPeriodException::new);
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
-        } else if (periodRepository.existsByName(periodDTO.getName())) {
+        } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
             throw new DuplicateCountryException();
         }
 
-        period.setName(periodDTO.getName());
+        period.setName(periodDTO.getName().trim());
     }
 
     // 시대 삭제

@@ -1,15 +1,18 @@
 package com.ohgiraffers.quote_collection_spring.exception;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseError;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.DuplicateFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.EmptyFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.DuplicatePeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.DuplicateThemeException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.EmptyThemeException;
+import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,7 +24,8 @@ public class ExceptionController {
     @ExceptionHandler({
             NotFoundCountryException.class,
             NotFoundPeriodException.class,
-            NotFoundFieldException.class
+            NotFoundFieldException.class,
+            NotFoundThemeException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -36,7 +40,8 @@ public class ExceptionController {
     @ExceptionHandler({
             EmptyCountryException.class,
             EmptyPeriodException.class,
-            EmptyFieldException.class
+            EmptyFieldException.class,
+            EmptyThemeException.class
     })
     public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -51,7 +56,8 @@ public class ExceptionController {
     @ExceptionHandler({
             DuplicateCountryException.class,
             DuplicatePeriodException.class,
-            DuplicateFieldException.class
+            DuplicateFieldException.class,
+            DuplicateThemeException.class
     })
     public ResponseEntity<ResponseError> duplicateException(Exception e) {
         ResponseError responseError = new ResponseError(

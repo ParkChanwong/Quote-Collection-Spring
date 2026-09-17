@@ -28,7 +28,7 @@ public class CountryService {
 
     public CountryEntity convertToEntity(CountryDTO countryDTO){
         CountryEntity countryEntity = new CountryEntity();
-        countryEntity.setName(countryDTO.getName());
+        countryEntity.setName(countryDTO.getName().trim());
 
         return countryEntity;
     }
@@ -55,7 +55,7 @@ public class CountryService {
     public void saveCountry(CountryDTO countryDTO){
         if (countryDTO.getName() == null || countryDTO.getName().isBlank()){
             throw new EmptyCountryException();
-        } else if (countryRepository.existsByName(countryDTO.getName())){
+        } else if (countryRepository.existsByName(countryDTO.getName().trim())){
             throw new DuplicateCountryException();
         }
 
@@ -71,11 +71,11 @@ public class CountryService {
 
         if (countryDTO.getName() == null || countryDTO.getName().isBlank()){
             throw new EmptyCountryException();
-        } else if (countryRepository.existsByName(countryDTO.getName())){
+        } else if (countryRepository.existsByName(countryDTO.getName().trim())){
             throw new DuplicateCountryException();
         }
 
-        findCountry.setName(countryDTO.getName());
+        findCountry.setName(countryDTO.getName().trim());
     }
 
     // 국가 삭제

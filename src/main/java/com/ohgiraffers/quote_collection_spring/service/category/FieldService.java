@@ -2,9 +2,9 @@ package com.ohgiraffers.quote_collection_spring.service.category;
 
 import com.ohgiraffers.quote_collection_spring.dto.category.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.entity.category.FieldEntity;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.DuplicateFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.EmptyFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.repository.category.FieldRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class FieldService {
 
     public FieldEntity convertToEntity(FieldDTO fieldDTO) {
         FieldEntity fieldEntity = new FieldEntity();
-        fieldEntity.setName(fieldDTO.getName());
+        fieldEntity.setName(fieldDTO.getName().trim());
 
         return fieldEntity;
     }
@@ -54,7 +54,7 @@ public class FieldService {
     public void saveField(FieldDTO fieldDTO) {
         if (fieldDTO.getName() == null || fieldDTO.getName().isBlank()) {
             throw new EmptyFieldException();
-        } else if (fieldRepository.existsByName(fieldDTO.getName())) {
+        } else if (fieldRepository.existsByName(fieldDTO.getName().trim())) {
             throw new DuplicateFieldException();
         }
 
@@ -70,11 +70,11 @@ public class FieldService {
 
         if (fieldDTO.getName() == null || fieldDTO.getName().isBlank()) {
             throw new EmptyFieldException();
-        } else if (fieldRepository.existsByName(fieldDTO.getName())) {
+        } else if (fieldRepository.existsByName(fieldDTO.getName().trim())) {
             throw new DuplicateFieldException();
         }
 
-        field.setName(fieldDTO.getName());
+        field.setName(fieldDTO.getName().trim());
     }
 
     // 분야 삭제
