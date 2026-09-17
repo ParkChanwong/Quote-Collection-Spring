@@ -1,11 +1,13 @@
 package com.ohgiraffers.quote_collection_spring.controller.category;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
+import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.category.ThemeDTO;
 import com.ohgiraffers.quote_collection_spring.service.category.ThemeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +34,15 @@ public class ThemeController {
         return ResponseEntity.status(HttpStatus.OK).body(responseList);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSingle> findThemeById(@PathVariable int id) {
+        ThemeDTO theme = themeService.findThemeById(id);
 
+        ResponseSingle responseList = new ResponseSingle(
+                HttpStatus.OK.value(),
+                theme
+        );
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseList);
+    }
 }
