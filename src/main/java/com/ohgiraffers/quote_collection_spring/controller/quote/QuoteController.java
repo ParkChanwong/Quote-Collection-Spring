@@ -69,4 +69,12 @@ public class QuoteController {
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "명언 등록 성공"));
     }
+
+    // 명언 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseSingle<String>> modifyQuote(@PathVariable int id, @RequestBody QuoteRequestDTO quoteRequestDTO) {
+        quoteService.modifyQuote(id, quoteRequestDTO);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "명언 수정 성공"));
+    }
 }
