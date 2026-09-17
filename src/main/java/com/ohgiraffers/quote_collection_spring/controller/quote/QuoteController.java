@@ -77,4 +77,12 @@ public class QuoteController {
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "명언 수정 성공"));
     }
+
+    // 명언 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseSingle<String>> deleteQuote(@PathVariable int id) {
+        quoteService.deleteQuote(id);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "명언 삭제 성공"));
+    }
 }
