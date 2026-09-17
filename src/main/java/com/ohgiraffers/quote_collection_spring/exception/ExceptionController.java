@@ -15,6 +15,7 @@ import com.ohgiraffers.quote_collection_spring.exception.category.theme.EmptyThe
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.person.EmptyPersonException;
 import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.exception.quote.EmptyQuoteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -45,7 +46,8 @@ public class ExceptionController {
             EmptyPeriodException.class,
             EmptyFieldException.class,
             EmptyThemeException.class,
-            EmptyPersonException.class
+            EmptyPersonException.class,
+            EmptyQuoteException.class
     })
     public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
