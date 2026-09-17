@@ -13,6 +13,8 @@ import com.ohgiraffers.quote_collection_spring.exception.category.period.NotFoun
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.DuplicateThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.EmptyThemeException;
 import com.ohgiraffers.quote_collection_spring.exception.category.theme.NotFoundThemeException;
+import com.ohgiraffers.quote_collection_spring.exception.person.EmptyPersonException;
+import com.ohgiraffers.quote_collection_spring.exception.person.NotFoundPersonException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,7 +27,8 @@ public class ExceptionController {
             NotFoundCountryException.class,
             NotFoundPeriodException.class,
             NotFoundFieldException.class,
-            NotFoundThemeException.class
+            NotFoundThemeException.class,
+            NotFoundPersonException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -41,7 +44,8 @@ public class ExceptionController {
             EmptyCountryException.class,
             EmptyPeriodException.class,
             EmptyFieldException.class,
-            EmptyThemeException.class
+            EmptyThemeException.class,
+            EmptyPersonException.class
     })
     public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
