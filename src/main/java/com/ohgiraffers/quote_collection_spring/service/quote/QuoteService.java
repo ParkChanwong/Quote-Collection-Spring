@@ -45,4 +45,11 @@ public class QuoteService {
 
         return quotes.stream().map(this::convertToDTO).toList();
     }
+
+    // 키워드로 명언 조회
+    public List<QuoteResponseDTO> findAllQuotesByKeyword(String keyword) {
+        List<QuoteEntity> quotes = quoteRepository.findAllQuotesByQuoteContaining(keyword, QUOTE_SORT);
+
+        return quotes.stream().map(this::convertToDTO).toList();
+    }
 }
