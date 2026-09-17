@@ -33,8 +33,16 @@ public class QuoteController {
 
     // 인물명으로 명언 조회
     @GetMapping("/person")
-    public ResponseEntity<ResponseList<QuoteResponseDTO>> findQuoteByPerson(@RequestParam String keyword) {
-        List<QuoteResponseDTO> quotes = quoteService.findAllByPersonName(keyword.trim());
+    public ResponseEntity<ResponseList<QuoteResponseDTO>> findQuotesByPerson(@RequestParam String keyword) {
+        List<QuoteResponseDTO> quotes = quoteService.findAllQuotesByPersonName(keyword.trim());
+
+        return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
+    }
+
+    // 주제명으로 명언 조회
+    @GetMapping("/theme")
+    public ResponseEntity<ResponseList<QuoteResponseDTO>> findQuotesByTheme(@RequestParam String keyword) {
+        List<QuoteResponseDTO> quotes = quoteService.findAllQuotesByThemeName(keyword.trim());
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
     }
