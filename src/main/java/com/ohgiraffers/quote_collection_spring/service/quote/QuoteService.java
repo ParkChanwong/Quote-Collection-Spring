@@ -6,10 +6,11 @@ import com.ohgiraffers.quote_collection_spring.repository.quote.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Repository
+@Service
 public class QuoteService {
     private static final Sort QUOTE_SORT = Sort.by("quote", "themeName", "personName");
 
@@ -32,8 +33,15 @@ public class QuoteService {
     }
 
     // 인물명으로 명언 조회
-    public List<QuoteResponseDTO> findAllByPersonName(String personName) {
+    public List<QuoteResponseDTO> findAllQuotesByPersonName(String personName) {
         List<QuoteEntity> quotes = quoteRepository.findAllQuotesByPersonNameContaining(personName, QUOTE_SORT);
+
+        return quotes.stream().map(this::convertToDTO).toList();
+    }
+
+    // 주제명으로 명언 조회
+    public List<QuoteResponseDTO> findAllQuotesByThemeName(String themeName) {
+        List<QuoteEntity> quotes = quoteRepository.findAllQuotesByThemeNameContaining(themeName, QUOTE_SORT);
 
         return quotes.stream().map(this::convertToDTO).toList();
     }
