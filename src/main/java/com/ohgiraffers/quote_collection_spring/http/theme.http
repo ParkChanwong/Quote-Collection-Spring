@@ -21,3 +21,6 @@ Content-Type: application/json
 {
   "name": "학업"
 }
+
+### 주제 삭제
+DELETE http://localhost:8080/theme/12
