@@ -25,11 +25,11 @@ public class ThemeService {
         this.themeRepository = themeRepository;
     }
 
-    public ThemeDTO convertToDTO(ThemeEntity themeEntity) {
+    private ThemeDTO convertToDTO(ThemeEntity themeEntity) {
         return new ThemeDTO(themeEntity.getId(), themeEntity.getName());
     }
 
-    public ThemeEntity convertToEntity(ThemeDTO themeDTO) {
+    private ThemeEntity convertToEntity(ThemeDTO themeDTO) {
         ThemeEntity themeEntity = new ThemeEntity();
         themeEntity.setName(themeDTO.getName().trim());
 

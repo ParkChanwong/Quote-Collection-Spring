@@ -24,11 +24,11 @@ public class FieldService {
         this.fieldRepository = fieldRepository;
     }
 
-    public FieldDTO convertToDTO(FieldEntity fieldEntity) {
+    private FieldDTO convertToDTO(FieldEntity fieldEntity) {
         return new FieldDTO(fieldEntity.getId(), fieldEntity.getName());
     }
 
-    public FieldEntity convertToEntity(FieldDTO fieldDTO) {
+    private FieldEntity convertToEntity(FieldDTO fieldDTO) {
         FieldEntity fieldEntity = new FieldEntity();
         fieldEntity.setName(fieldDTO.getName().trim());
 

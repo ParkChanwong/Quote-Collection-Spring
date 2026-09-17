@@ -23,11 +23,11 @@ public class CountryService {
         this.countryRepository = countryRepository;
     }
 
-    public CountryDTO convertToDTO(CountryEntity countryEntity){
+    private CountryDTO convertToDTO(CountryEntity countryEntity){
         return new CountryDTO(countryEntity.getId(), countryEntity.getName());
     }
 
-    public CountryEntity convertToEntity(CountryDTO countryDTO){
+    private CountryEntity convertToEntity(CountryDTO countryDTO){
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setName(countryDTO.getName().trim());
 

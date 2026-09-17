@@ -24,11 +24,11 @@ public class PeriodService {
         this.periodRepository = periodRepository;
     }
 
-    public PeriodDTO convertToDTO(PeriodEntity periodEntity) {
+    private PeriodDTO convertToDTO(PeriodEntity periodEntity) {
         return new PeriodDTO(periodEntity.getId(), periodEntity.getName());
     }
 
-    public PeriodEntity convertToEntity(PeriodDTO periodDTO) {
+    private PeriodEntity convertToEntity(PeriodDTO periodDTO) {
         PeriodEntity periodEntity = new PeriodEntity();
         periodEntity.setName(periodDTO.getName().trim());
 
