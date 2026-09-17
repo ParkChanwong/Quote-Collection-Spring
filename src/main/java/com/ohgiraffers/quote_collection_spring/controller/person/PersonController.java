@@ -1,7 +1,9 @@
 package com.ohgiraffers.quote_collection_spring.controller.person;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseList;
+import com.ohgiraffers.quote_collection_spring.common.ResponseSingle;
 import com.ohgiraffers.quote_collection_spring.dto.person.PersonResponseDTO;
+import com.ohgiraffers.quote_collection_spring.entity.person.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.service.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,10 +54,19 @@ public class PersonController {
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
     }
 
+    // 인물명으로 인물 조회
     @GetMapping("/name")
     public ResponseEntity<ResponseList<PersonResponseDTO>> findPersonsByName(@RequestParam String keyword) {
         List<PersonResponseDTO> persons = personService.findAllPersonsByName(keyword);
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
+
+    // 인물 ID 단일 조회
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseSingle<PersonResponseDTO>> findPersonById(@PathVariable int id) {
+        PersonResponseDTO person = personService.findPersonById(id);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), person));
     }
 }
