@@ -77,7 +77,7 @@ public class PersonService {
 
     // 전체 인물 조회
     public List<PersonResponseDTO> findAllPersons() {
-        List<PersonEntity> persons = personRepository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+        List<PersonEntity> persons = personRepository.findAll(Sort.by("name", "countryName", "fieldName", "periodName", "id"));
 
         return persons.stream().map(this::convertToDTO).toList();
     }
