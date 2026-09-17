@@ -14,4 +14,7 @@ public interface QuoteRepository extends JpaRepository<QuoteEntity, Integer> {
 
     // 주제명 조회
     List<QuoteEntity> findAllQuotesByThemeNameContaining(String themeName, Sort sort);
+
+    // 키워드 조회
+    List<QuoteEntity> findAllQuotesByQuoteContaining(String content, Sort sort);
 }
