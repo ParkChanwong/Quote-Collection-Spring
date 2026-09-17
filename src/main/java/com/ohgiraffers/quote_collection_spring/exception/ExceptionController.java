@@ -1,9 +1,9 @@
 package com.ohgiraffers.quote_collection_spring.exception;
 
 import com.ohgiraffers.quote_collection_spring.common.ResponseError;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.DuplicateFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.EmptyFieldException;
-import com.ohgiraffers.quote_collection_spring.exception.category.Field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.exception.category.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.EmptyCountryException;
 import com.ohgiraffers.quote_collection_spring.exception.category.country.NotFoundCountryException;
