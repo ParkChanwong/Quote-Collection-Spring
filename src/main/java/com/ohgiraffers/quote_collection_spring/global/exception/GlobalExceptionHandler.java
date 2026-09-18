@@ -1,7 +1,9 @@
 package com.ohgiraffers.quote_collection_spring.global.exception;
 
+import com.ohgiraffers.quote_collection_spring.domain.account.exception.DuplicateIdException;
 import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyIdException;
 import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyPasswordException;
+import com.ohgiraffers.quote_collection_spring.domain.account.exception.SignInFailedException;
 import com.ohgiraffers.quote_collection_spring.global.common.ResponseError;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.DuplicateFieldException;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.EmptyFieldException;
@@ -71,7 +73,8 @@ public class GlobalExceptionHandler {
             DuplicatePeriodException.class,
             DuplicateFieldException.class,
             DuplicateThemeException.class,
-            DuplicateQuoteException.class
+            DuplicateQuoteException.class,
+            DuplicateIdException.class
     })
     public ResponseEntity<ResponseError> duplicateException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -83,7 +86,7 @@ public class GlobalExceptionHandler {
     }
 
     // 로그인 실패
-    @ExceptionHandler()
+    @ExceptionHandler(SignInFailedException.class)
     public ResponseEntity<ResponseError> loginFailed(Exception e) {
         ResponseError responseError = new ResponseError(
                 HttpStatus.UNAUTHORIZED.value(),
