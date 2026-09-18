@@ -4,6 +4,7 @@ import com.quotehunters.quotecollection.domain.account.exception.DuplicateIdExce
 import com.quotehunters.quotecollection.domain.account.exception.EmptyIdException;
 import com.quotehunters.quotecollection.domain.account.exception.EmptyPasswordException;
 import com.quotehunters.quotecollection.domain.account.exception.SignInFailedException;
+import com.quotehunters.quotecollection.domain.mypage.bookmark.exception.NotFoundBookmarkException;
 import com.quotehunters.quotecollection.global.common.ResponseError;
 import com.quotehunters.quotecollection.domain.category.exception.field.DuplicateFieldException;
 import com.quotehunters.quotecollection.domain.category.exception.field.EmptyFieldException;
@@ -36,7 +37,8 @@ public class GlobalExceptionHandler {
             NotFoundFieldException.class,
             NotFoundThemeException.class,
             NotFoundPersonException.class,
-            NotFoundQuoteException.class
+            NotFoundQuoteException.class,
+            NotFoundBookmarkException.class
     })
     public ResponseEntity<ResponseError> notFoundException(Exception e) {
         ResponseError responseError = new ResponseError(
