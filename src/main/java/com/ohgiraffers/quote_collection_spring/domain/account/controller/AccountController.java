@@ -23,9 +23,16 @@ public class AccountController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<ResponseSingle<String>> signIn(@RequestBody AccountDTO accountDTO){
+    public ResponseEntity<ResponseSingle<String>> signIn(@RequestBody AccountDTO accountDTO) {
         String token = accountService.signIn(accountDTO);
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), token));
+    }
+
+    @PostMapping("/signup/user")
+    public ResponseEntity<ResponseSingle<String>> userSignUp(@RequestBody AccountDTO accountDTO) {
+        accountService.userSignUp(accountDTO);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "회원가입 성공"));
     }
 }
