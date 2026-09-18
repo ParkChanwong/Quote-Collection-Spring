@@ -2,6 +2,7 @@ package com.ohgiraffers.quote_collection_spring.domain.account.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.account.dto.AccountDTO;
 import com.ohgiraffers.quote_collection_spring.domain.account.entity.AccountEntity;
+import com.ohgiraffers.quote_collection_spring.domain.account.exception.DuplicateIdException;
 import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyIdException;
 import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyPasswordException;
 import com.ohgiraffers.quote_collection_spring.domain.account.exception.SignInFailedException;
@@ -26,6 +27,14 @@ public class AccountService {
         this.jwtService = jwtService;
     }
 
+    private AccountEntity convertToEntity(AccountDTO dto) {
+        AccountEntity accountEntity = new AccountEntity();
+        accountEntity.setUserId(dto.getUserId());
+        accountEntity.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+
+        return accountEntity;
+    }
+
     public String signIn(AccountDTO accountDTO) {
         AccountEntity account = accountRepository
                 .findByUserId(accountDTO.getUserId())
@@ -48,5 +57,20 @@ public class AccountService {
         };
 
         return jwtService.createAccessToken(account.getId(), role);
+    }
+
+    public void userSignUp(AccountDTO accountDTO) {
+        if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
+            throw new EmptyIdException();
+        } else if (accountRepository.existsByUserId(accountDTO.getUserId())) {
+            throw new DuplicateIdException();
+        } else if (accountDTO.getUserPw() == null || accountDTO.getUserPw().isBlank()) {
+            throw new EmptyPasswordException();
+        }
+
+        AccountEntity account = convertToEntity(accountDTO);
+        account.setAuth(1);
+
+        accountRepository.save(account);
     }
 }
