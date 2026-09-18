@@ -44,7 +44,7 @@ public class SecurityConfig {
                         // 앞으로 만들 회원가입·로그인 경로
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/account/signup/user",
+                                "/account/signup/**",
                                 "/account/signin"
                         ).permitAll()
 
