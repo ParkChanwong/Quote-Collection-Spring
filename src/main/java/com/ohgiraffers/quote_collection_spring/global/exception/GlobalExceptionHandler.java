@@ -1,30 +1,30 @@
 package com.ohgiraffers.quote_collection_spring.global.exception;
 
 import com.ohgiraffers.quote_collection_spring.global.common.ResponseError;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.DuplicateFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.EmptyFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.NotFoundFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.DuplicateCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.EmptyCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.NotFoundCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.DuplicatePeriodException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.EmptyPeriodException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.NotFoundPeriodException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.DuplicateThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.EmptyThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.NotFoundThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.person.EmptyPersonException;
-import com.ohgiraffers.quote_collection_spring.global.exception.person.NotFoundPersonException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.DuplicateQuoteException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.EmptyQuoteException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.NotFoundQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.DuplicateCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.EmptyCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.NotFoundCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.DuplicatePeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.EmptyPeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.DuplicateThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.EmptyThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.NotFoundThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.person.exception.EmptyPersonException;
+import com.ohgiraffers.quote_collection_spring.domain.person.exception.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.DuplicateQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.EmptyQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.NotFoundQuoteException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionController {
+public class GlobalExceptionHandler {
     // 존재하지 않음
     @ExceptionHandler({
             NotFoundCountryException.class,
