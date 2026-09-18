@@ -1,5 +1,7 @@
 package com.ohgiraffers.quote_collection_spring.global.exception;
 
+import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyIdException;
+import com.ohgiraffers.quote_collection_spring.domain.account.exception.EmptyPasswordException;
 import com.ohgiraffers.quote_collection_spring.global.common.ResponseError;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.DuplicateFieldException;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.EmptyFieldException;
@@ -50,7 +52,9 @@ public class GlobalExceptionHandler {
             EmptyFieldException.class,
             EmptyThemeException.class,
             EmptyPersonException.class,
-            EmptyQuoteException.class
+            EmptyQuoteException.class,
+            EmptyIdException.class,
+            EmptyPasswordException.class
     })
     public ResponseEntity<ResponseError> emptyException(Exception e) {
         ResponseError responseError = new ResponseError(
@@ -76,6 +80,17 @@ public class GlobalExceptionHandler {
         );
 
         return new ResponseEntity<>(responseError, HttpStatus.CONFLICT);
+    }
+
+    // 로그인 실패
+    @ExceptionHandler()
+    public ResponseEntity<ResponseError> loginFailed(Exception e) {
+        ResponseError responseError = new ResponseError(
+                HttpStatus.UNAUTHORIZED.value(),
+                e.getMessage()
+        );
+
+        return new ResponseEntity<>(responseError, HttpStatus.UNAUTHORIZED);
     }
 
     // 잡지 못한 문제 통합
