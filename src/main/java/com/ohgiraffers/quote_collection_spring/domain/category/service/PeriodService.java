@@ -2,7 +2,6 @@ package com.ohgiraffers.quote_collection_spring.domain.category.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.category.dto.PeriodDTO;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.PeriodEntity;
-import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.DuplicateCountryException;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.DuplicatePeriodException;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.EmptyPeriodException;
 import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.NotFoundPeriodException;
