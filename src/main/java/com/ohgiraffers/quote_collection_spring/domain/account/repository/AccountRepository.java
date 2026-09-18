@@ -12,5 +12,5 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     Optional<AccountEntity> findByUserId(String userId);
 
     // id 중복 체크
-    boolean existsByUserId(String userId);
+    boolean existsByUserIdAndAuth(String userId, int auth);
 }
