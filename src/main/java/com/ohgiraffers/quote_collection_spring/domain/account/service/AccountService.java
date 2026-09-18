@@ -62,7 +62,7 @@ public class AccountService {
     public void userSignUp(AccountDTO accountDTO) {
         if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
             throw new EmptyIdException();
-        } else if (accountRepository.existsByUserId(accountDTO.getUserId())) {
+        } else if (accountRepository.existsByUserIdAndAuth(accountDTO.getUserId(), 1)) {
             throw new DuplicateIdException();
         } else if (accountDTO.getUserPw() == null || accountDTO.getUserPw().isBlank()) {
             throw new EmptyPasswordException();
@@ -70,6 +70,21 @@ public class AccountService {
 
         AccountEntity account = convertToEntity(accountDTO);
         account.setAuth(1);
+
+        accountRepository.save(account);
+    }
+
+    public void adminSignUp(AccountDTO accountDTO) {
+        if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
+            throw new EmptyIdException();
+        } else if (accountRepository.existsByUserIdAndAuth(accountDTO.getUserId(), 0)) {
+            throw new DuplicateIdException();
+        } else if (accountDTO.getUserPw() == null || accountDTO.getUserPw().isBlank()) {
+            throw new EmptyPasswordException();
+        }
+
+        AccountEntity account = convertToEntity(accountDTO);
+        account.setAuth(0);
 
         accountRepository.save(account);
     }
