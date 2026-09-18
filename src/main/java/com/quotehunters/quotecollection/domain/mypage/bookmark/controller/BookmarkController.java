@@ -2,7 +2,6 @@ package com.quotehunters.quotecollection.domain.mypage.bookmark.controller;
 
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkRequestDTO;
-import com.quotehunters.quotecollection.domain.mypage.bookmark.entity.BookmarkEntity;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.service.BookmarkService;
 import com.quotehunters.quotecollection.global.common.ResponseList;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;

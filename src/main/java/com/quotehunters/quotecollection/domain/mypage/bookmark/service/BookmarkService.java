@@ -1,15 +1,13 @@
 package com.quotehunters.quotecollection.domain.mypage.bookmark.service;
 
 import com.quotehunters.quotecollection.domain.account.entity.AccountEntity;
+import com.quotehunters.quotecollection.domain.account.exception.NotFoundUserException;
 import com.quotehunters.quotecollection.domain.account.repository.AccountRepository;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkRequestDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.entity.BookmarkEntity;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.exception.NotFoundBookmarkException;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.repository.BookmarkRepository;
-import com.quotehunters.quotecollection.domain.person.entity.PersonEntity;
-import com.quotehunters.quotecollection.domain.person.exception.NotFoundPersonException;
-import com.quotehunters.quotecollection.domain.person.repository.PersonRepository;
 import com.quotehunters.quotecollection.domain.quote.entity.QuoteEntity;
 import com.quotehunters.quotecollection.domain.quote.exception.NotFoundQuoteException;
 import com.quotehunters.quotecollection.domain.quote.repository.QuoteRepository;
@@ -40,7 +38,7 @@ public class BookmarkService {
     }
 
     private AccountEntity findUserOrThrow(int userId) {
-        return accountRepository.findById(userId).orElseThrow(NotFoundBookmarkException::new);
+        return accountRepository.findById(userId).orElseThrow(NotFoundUserException::new);
     }
 
     private QuoteEntity findQuoteOrThrow(int quoteId) {
