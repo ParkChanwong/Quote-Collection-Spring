@@ -79,7 +79,7 @@ public class PeriodService {
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
         } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
-            throw new DuplicateCountryException();
+            throw new DuplicatePeriodException();
         }
 
         period.setName(periodDTO.getName().trim());
