@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface BookmarkRepository extends JpaRepository<BookmarkEntity, Integer> {
+    boolean existsByAccountIdAndQuoteId(int accountId, int quoteId);
+
     // 내 모든 북마크 가져오기
     List<BookmarkEntity> findAllByAccountId(int userId, Sort sort);
 }
