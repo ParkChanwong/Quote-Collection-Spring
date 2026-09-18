@@ -7,6 +7,7 @@ import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkRequestDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.entity.BookmarkEntity;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.exception.NotFoundBookmarkException;
+import com.quotehunters.quotecollection.domain.mypage.bookmark.exception.DuplicateBookmarkException;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.repository.BookmarkRepository;
 import com.quotehunters.quotecollection.domain.quote.entity.QuoteEntity;
 import com.quotehunters.quotecollection.domain.quote.exception.NotFoundQuoteException;
@@ -62,6 +63,10 @@ public class BookmarkService {
 
     // 북마크 등록
     public void saveBookmark(int memberId, BookmarkRequestDTO bookmarkRequestDTO) {
+        if (bookmarkRepository.existsByAccountIdAndQuoteId(memberId, bookmarkRequestDTO.getQuoteId())) {
+            throw new DuplicateBookmarkException();
+        }
+
         BookmarkEntity bookmarkEntity = new BookmarkEntity();
 
         bookmarkEntity.setAccount(findUserOrThrow(memberId));
