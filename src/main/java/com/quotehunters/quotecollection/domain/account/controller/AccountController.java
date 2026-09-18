@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,8 +23,11 @@ public class AccountController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<ResponseSingle<String>> signIn(@RequestBody AccountDTO accountDTO) {
-        String token = accountService.signIn(accountDTO);
+    public ResponseEntity<ResponseSingle<String>> signIn(
+            @RequestBody AccountDTO accountDTO,
+            @RequestParam(defaultValue = "1") int auth
+    ) {
+        String token = accountService.signIn(accountDTO, auth);
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), token));
     }
