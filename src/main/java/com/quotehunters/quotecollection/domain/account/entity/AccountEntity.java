@@ -3,7 +3,8 @@ package com.quotehunters.quotecollection.domain.account.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "quote_user")
+@Table(name = "quote_user", uniqueConstraints =
+        @UniqueConstraint(name = "uq_user_id_auth", columnNames = {"user_id", "user_auth"}))
 public class AccountEntity {
     @Id
     @Column(name = "member_id")
@@ -65,7 +66,6 @@ public class AccountEntity {
         return "UserEntity{" +
                 "id=" + id +
                 ", userId='" + userId + '\'' +
-                ", userPw='" + userPw + '\'' +
                 ", auth='" + auth + '\'' +
                 '}';
     }
