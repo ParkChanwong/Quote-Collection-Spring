@@ -2,9 +2,9 @@ package com.ohgiraffers.quote_collection_spring.domain.category.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.category.dto.ThemeDTO;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.ThemeEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.DuplicateThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.EmptyThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.NotFoundThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.DuplicateThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.EmptyThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.NotFoundThemeException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

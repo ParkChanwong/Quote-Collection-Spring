@@ -2,9 +2,9 @@ package com.ohgiraffers.quote_collection_spring.domain.category.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.category.dto.CountryDTO;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.CountryEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.DuplicateCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.EmptyCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.NotFoundCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.DuplicateCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.EmptyCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.NotFoundCountryException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.CountryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

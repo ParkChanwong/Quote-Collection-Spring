@@ -28,3 +28,8 @@ spring:
 
 server:
   port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  issuer: quote-collection
+  access-token-expiration: 24h

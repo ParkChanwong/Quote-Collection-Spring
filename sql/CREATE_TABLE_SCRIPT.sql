@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS quote_user;
 CREATE TABLE IF NOT EXISTS quote_user (
     member_id INT AUTO_INCREMENT COMMENT '회원 고유 번호',
     user_id VARCHAR(30) NOT NULL COMMENT '회원 ID',
-    user_pw varchar(20) NOT NULL COMMENT '회원 PW',
+    user_pw varchar(255) NOT NULL COMMENT '회원 PW',
     user_auth INT NOT NULL COMMENT '회원 권한 (0: 관리자 / 1: 사용자)',
 
     CONSTRAINT pk_member_id PRIMARY KEY ( member_id ),
