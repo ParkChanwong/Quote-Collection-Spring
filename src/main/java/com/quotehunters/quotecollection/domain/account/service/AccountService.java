@@ -4,6 +4,7 @@ import com.quotehunters.quotecollection.domain.account.dto.AccountDTO;
 import com.quotehunters.quotecollection.domain.account.entity.AccountEntity;
 import com.quotehunters.quotecollection.domain.account.exception.DuplicateIdException;
 import com.quotehunters.quotecollection.domain.account.exception.EmptyIdException;
+import com.quotehunters.quotecollection.domain.account.exception.InvalidAuthException;
 import com.quotehunters.quotecollection.domain.account.exception.EmptyPasswordException;
 import com.quotehunters.quotecollection.domain.account.exception.SignInFailedException;
 import com.quotehunters.quotecollection.domain.account.repository.AccountRepository;
@@ -33,16 +34,20 @@ public class AccountService {
         return accountEntity;
     }
 
-    public String signIn(AccountDTO accountDTO) {
-        AccountEntity account = accountRepository
-                .findByUserId(accountDTO.getUserId())
-                .orElseThrow(() -> new SignInFailedException("아이디가 틀렸습니다."));
+    public String signIn(AccountDTO accountDTO, int auth) {
+        if (auth != 0 && auth != 1) {
+            throw new InvalidAuthException();
+        }
 
         if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
             throw new EmptyIdException();
         } else if (accountDTO.getUserPw() == null || accountDTO.getUserPw().isBlank()) {
             throw new EmptyPasswordException();
         }
+
+        AccountEntity account = accountRepository
+                .findByUserIdAndAuth(accountDTO.getUserId(), auth)
+                .orElseThrow(() -> new SignInFailedException("아이디가 틀렸습니다."));
 
         if (!passwordEncoder.matches(accountDTO.getUserPw(), account.getUserPw())) {
             throw new SignInFailedException("비밀번호가 틀렸습니다.");

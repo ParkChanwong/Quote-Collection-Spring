@@ -21,12 +21,8 @@ ALTER TABLE quote_user AUTO_INCREMENT = 1;
 -- 초기 데이터 INSERT
 INSERT INTO quote_user (user_id, user_pw, user_auth)
 VALUES
-    ('admin01',  'adminpw01', 0),
-    ('admin02', 'adminpw02', 0),
-    ('user01', 'password01', 1),
-    ('user02', 'password02', 1),
-    ('user03', 'password03', 1),
-    ('user04', 'password04', 1);
+    ('admin01',  '$2a$10$1e8Hu7R32t8bvNV/cQa0reifQXL.3Cd.m8lHGcbqHJa2005Pg8BY6', 0),
+    ('user01', '$2a$10$hz1dpnBaZIyfAjx8YVtbp.vT0L3KIaTTCDX6hrTUU2PqS28OSxGIS', 1);
 
 INSERT INTO country (country_name)
 VALUES
@@ -128,12 +124,12 @@ VALUES
 
 INSERT INTO bookmark (member_id, quote_id)
 VALUES
-    (3, 13),
-    (3, 16),
-    (4, 19),
-    (4, 22),
-    (5, 25),
-    (5, 28);
+    (2, 13),
+    (2, 16),
+    (2, 19),
+    (2, 22),
+    (2, 25),
+    (2, 28);
 
 
 -- COMMIT이 안됨을 방지하기 위해 COMMIT 쿼리 실행

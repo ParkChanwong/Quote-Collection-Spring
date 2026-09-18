@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class QuoteCollectionSpringApplication {
+public class QuoteCollectionApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(QuoteCollectionSpringApplication.class, args);
+        SpringApplication.run(QuoteCollectionApplication.class, args);
     }
 
 }
