@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface AccountRepository extends JpaRepository<AccountEntity, Integer> {
     // id 찾기
     Optional<AccountEntity> findByUserId(String userId);
+
+    // id 중복 체크
+    boolean existsByUserId(String userId);
 }
