@@ -61,14 +61,14 @@ public class QuoteService {
     }
 
     private QuoteEntity convertToEntity(
-            QuoteRequestDTO quoteRequestDTO,
+            String content,
             PersonEntity personEntity,
             ThemeEntity themeEntity
     ) {
         QuoteEntity quoteEntity = new QuoteEntity();
         quoteEntity.setPerson(personEntity);
         quoteEntity.setTheme(themeEntity);
-        quoteEntity.setQuote(quoteRequestDTO.getQuote().trim());
+        quoteEntity.setQuote(content);
 
         return quoteEntity;
     }
@@ -118,17 +118,19 @@ public class QuoteService {
 
         if (quoteDTO.getQuote() == null || quoteDTO.getQuote().isBlank()) {
             throw new EmptyQuoteException();
-        } else if (
+        }
+        String content = quoteDTO.getQuote().trim();
+        if (
             quoteRepository.existsByPersonIdAndThemeIdAndQuote(
                 personEntity.getId(),
                 themeEntity.getId(),
-                quoteDTO.getQuote()
+                content
             )
         ) {
             throw new DuplicateQuoteException();
         }
 
-        quoteRepository.save(convertToEntity(quoteDTO, personEntity, themeEntity));
+        quoteRepository.save(convertToEntity(content, personEntity, themeEntity));
     }
 
     // 명언 수정
@@ -141,11 +143,13 @@ public class QuoteService {
 
         if (quoteDTO.getQuote() == null || quoteDTO.getQuote().isBlank()) {
             throw new EmptyQuoteException();
-        } else if (
+        }
+        String content = quoteDTO.getQuote().trim();
+        if (
             quoteRepository.existsByPersonIdAndThemeIdAndQuote(
                 person.getId(),
                 theme.getId(),
-                quoteDTO.getQuote()
+                content
             )
         ) {
             throw new DuplicateQuoteException();
@@ -153,7 +157,7 @@ public class QuoteService {
 
         quote.setPerson(person);
         quote.setTheme(theme);
-        quote.setQuote(quoteDTO.getQuote().trim());
+        quote.setQuote(content);
     }
 
     // 명언 삭제
