@@ -78,10 +78,8 @@ public class BookmarkService {
 
     // 북마크 취소
     public void bookmarkCancel(int memberId, int bookmarkId) {
-        List<BookmarkEntity> bookmarks = bookmarkRepository.findAllByAccountId(memberId, BOOKMARK_SORT);
-
-        BookmarkEntity bookmark = bookmarks.stream().filter(b -> b.getId() == bookmarkId)
-                .findFirst()
+        BookmarkEntity bookmark = bookmarkRepository
+                .findByIdAndAccountId(bookmarkId, memberId)
                 .orElseThrow(NotFoundBookmarkException::new);
 
         bookmarkRepository.delete(bookmark);
