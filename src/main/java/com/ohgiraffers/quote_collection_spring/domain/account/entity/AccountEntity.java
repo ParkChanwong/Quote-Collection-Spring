@@ -10,7 +10,7 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "member_id")
+    @Column(name = "user_id")
     private String userId;
 
     @Column(name = "user_pw")
