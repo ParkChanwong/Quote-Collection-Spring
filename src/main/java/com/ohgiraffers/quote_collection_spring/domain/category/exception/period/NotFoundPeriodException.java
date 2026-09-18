@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.category.period;
+package com.ohgiraffers.quote_collection_spring.domain.category.exception.period;
 
 public class NotFoundPeriodException extends RuntimeException {
     public NotFoundPeriodException(String message) {

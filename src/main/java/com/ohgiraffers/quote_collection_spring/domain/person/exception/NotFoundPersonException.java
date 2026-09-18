@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.person;
+package com.ohgiraffers.quote_collection_spring.domain.person.exception;
 
 public class NotFoundPersonException extends RuntimeException {
     public NotFoundPersonException(String message) {

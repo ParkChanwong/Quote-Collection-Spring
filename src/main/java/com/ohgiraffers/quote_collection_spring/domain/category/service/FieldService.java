@@ -2,9 +2,9 @@ package com.ohgiraffers.quote_collection_spring.domain.category.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.category.dto.FieldDTO;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.FieldEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.DuplicateFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.EmptyFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.DuplicateFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.EmptyFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.NotFoundFieldException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.FieldRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

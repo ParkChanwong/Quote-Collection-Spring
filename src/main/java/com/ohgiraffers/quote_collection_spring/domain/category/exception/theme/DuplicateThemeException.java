@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.category.theme;
+package com.ohgiraffers.quote_collection_spring.domain.category.exception.theme;
 
 public class DuplicateThemeException extends RuntimeException {
     public DuplicateThemeException(String message) {

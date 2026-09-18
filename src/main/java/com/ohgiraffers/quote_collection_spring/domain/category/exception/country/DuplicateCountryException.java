@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.category.country;
+package com.ohgiraffers.quote_collection_spring.domain.category.exception.country;
 
 public class DuplicateCountryException extends RuntimeException {
     public DuplicateCountryException(String message) {

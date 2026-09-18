@@ -5,11 +5,11 @@ import com.ohgiraffers.quote_collection_spring.domain.quote.dto.QuoteResponseDTO
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.ThemeEntity;
 import com.ohgiraffers.quote_collection_spring.domain.person.entity.PersonEntity;
 import com.ohgiraffers.quote_collection_spring.domain.quote.entity.QuoteEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.theme.NotFoundThemeException;
-import com.ohgiraffers.quote_collection_spring.global.exception.person.NotFoundPersonException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.DuplicateQuoteException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.EmptyQuoteException;
-import com.ohgiraffers.quote_collection_spring.global.exception.quote.NotFoundQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.theme.NotFoundThemeException;
+import com.ohgiraffers.quote_collection_spring.domain.person.exception.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.DuplicateQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.EmptyQuoteException;
+import com.ohgiraffers.quote_collection_spring.domain.quote.exception.NotFoundQuoteException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.ThemeRepository;
 import com.ohgiraffers.quote_collection_spring.domain.person.repository.PersonRepository;
 import com.ohgiraffers.quote_collection_spring.domain.quote.repository.QuoteRepository;

@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.quote;
+package com.ohgiraffers.quote_collection_spring.domain.quote.exception;
 
 public class DuplicateQuoteException extends RuntimeException {
     public DuplicateQuoteException(String message) {

@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.quote;
+package com.ohgiraffers.quote_collection_spring.domain.quote.exception;
 
 public class EmptyQuoteException extends RuntimeException {
     public EmptyQuoteException(String message) {

@@ -2,9 +2,10 @@ package com.ohgiraffers.quote_collection_spring.domain.category.service;
 
 import com.ohgiraffers.quote_collection_spring.domain.category.dto.PeriodDTO;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.PeriodEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.DuplicateCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.EmptyPeriodException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.DuplicateCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.DuplicatePeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.EmptyPeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.NotFoundPeriodException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.PeriodRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class PeriodService {
         if (periodDTO.getName() == null || periodDTO.getName().isBlank()) {
             throw new EmptyPeriodException();
         } else if (periodRepository.existsByName(periodDTO.getName().trim())) {
-            throw new DuplicateCountryException();
+            throw new DuplicatePeriodException();
         }
 
         periodRepository.save(convertToEntity(periodDTO));

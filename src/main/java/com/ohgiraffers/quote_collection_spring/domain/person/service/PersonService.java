@@ -6,11 +6,11 @@ import com.ohgiraffers.quote_collection_spring.domain.category.entity.CountryEnt
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.FieldEntity;
 import com.ohgiraffers.quote_collection_spring.domain.category.entity.PeriodEntity;
 import com.ohgiraffers.quote_collection_spring.domain.person.entity.PersonEntity;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.country.NotFoundCountryException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.field.NotFoundFieldException;
-import com.ohgiraffers.quote_collection_spring.global.exception.category.period.NotFoundPeriodException;
-import com.ohgiraffers.quote_collection_spring.global.exception.person.EmptyPersonException;
-import com.ohgiraffers.quote_collection_spring.global.exception.person.NotFoundPersonException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.country.NotFoundCountryException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.field.NotFoundFieldException;
+import com.ohgiraffers.quote_collection_spring.domain.category.exception.period.NotFoundPeriodException;
+import com.ohgiraffers.quote_collection_spring.domain.person.exception.EmptyPersonException;
+import com.ohgiraffers.quote_collection_spring.domain.person.exception.NotFoundPersonException;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.CountryRepository;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.FieldRepository;
 import com.ohgiraffers.quote_collection_spring.domain.category.repository.PeriodRepository;

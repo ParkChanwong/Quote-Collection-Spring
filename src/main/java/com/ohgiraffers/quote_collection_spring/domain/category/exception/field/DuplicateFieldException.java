@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.category.field;
+package com.ohgiraffers.quote_collection_spring.domain.category.exception.field;
 
 public class DuplicateFieldException extends RuntimeException {
     public DuplicateFieldException(String message) {

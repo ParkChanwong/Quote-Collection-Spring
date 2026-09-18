@@ -1,4 +1,4 @@
-package com.ohgiraffers.quote_collection_spring.global.exception.category.country;
+package com.ohgiraffers.quote_collection_spring.domain.category.exception.country;
 
 public class EmptyCountryException extends RuntimeException {
     public EmptyCountryException(String message) {
