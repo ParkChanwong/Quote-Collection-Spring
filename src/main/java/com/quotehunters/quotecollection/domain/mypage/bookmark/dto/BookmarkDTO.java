@@ -1,14 +1,24 @@
 package com.quotehunters.quotecollection.domain.mypage.bookmark.dto;
 
 public class BookmarkDTO {
+    private int id;
     private String personName;
     private String quote;
 
     public BookmarkDTO() {}
 
-    public BookmarkDTO(String personName, String quote) {
+    public BookmarkDTO(int id, String personName, String quote) {
+        this.id = id;
         this.personName = personName;
         this.quote = quote;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPersonName() {
@@ -30,7 +40,8 @@ public class BookmarkDTO {
     @Override
     public String toString() {
         return "BookmarkDTO{" +
-                "personName='" + personName + '\'' +
+                "id=" + id +
+                ", personName='" + personName + '\'' +
                 ", quote='" + quote + '\'' +
                 '}';
     }
