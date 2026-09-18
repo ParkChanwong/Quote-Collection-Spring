@@ -1,6 +1,9 @@
 package com.quotehunters.quotecollection.domain.mypage.bookmark.service;
 
+import com.quotehunters.quotecollection.domain.account.entity.AccountEntity;
+import com.quotehunters.quotecollection.domain.account.repository.AccountRepository;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkDTO;
+import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkRequestDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.entity.BookmarkEntity;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.exception.NotFoundBookmarkException;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.repository.BookmarkRepository;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,21 +26,21 @@ public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
     private final QuoteRepository quoteRepository;
-    private final PersonRepository personRepository;
+    private final AccountRepository accountRepository;
 
     @Autowired
     private BookmarkService(
             BookmarkRepository bookmarkRepository,
             QuoteRepository quoteRepository,
-            PersonRepository personRepository
+            AccountRepository accountRepository
     ) {
         this.bookmarkRepository = bookmarkRepository;
         this.quoteRepository = quoteRepository;
-        this.personRepository = personRepository;
+        this.accountRepository = accountRepository;
     }
 
-    private PersonEntity findPersonOrThrow(int personId) {
-        return personRepository.findById(personId).orElseThrow(NotFoundPersonException::new);
+    private AccountEntity findUserOrThrow(int userId) {
+        return accountRepository.findById(userId).orElseThrow(NotFoundBookmarkException::new);
     }
 
     private QuoteEntity findQuoteOrThrow(int quoteId) {
@@ -56,6 +60,17 @@ public class BookmarkService {
         List<BookmarkEntity> bookmarks = bookmarkRepository.findAllByAccountId(memberId, BOOKMARK_SORT);
 
         return bookmarks.stream().map(this::convertToDTO).toList();
+    }
+
+    // 북마크 등록
+    public void saveBookmark(int memberId, BookmarkRequestDTO bookmarkRequestDTO) {
+        BookmarkEntity bookmarkEntity = new BookmarkEntity();
+
+        bookmarkEntity.setAccount(findUserOrThrow(memberId));
+        bookmarkEntity.setQuote(findQuoteOrThrow(bookmarkRequestDTO.getQuoteId()));
+        bookmarkEntity.setCreatedAt(new Date());
+
+        bookmarkRepository.save(bookmarkEntity);
     }
 
     // 북마크 취소
