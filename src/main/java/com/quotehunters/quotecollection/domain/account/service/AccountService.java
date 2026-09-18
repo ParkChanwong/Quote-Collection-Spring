@@ -27,8 +27,8 @@ public class AccountService {
 
     private AccountEntity convertToEntity(AccountDTO dto) {
         AccountEntity accountEntity = new AccountEntity();
-        accountEntity.setUserId(dto.getUserId());
-        accountEntity.setUserPw(passwordEncoder.encode(dto.getUserPw()));
+        accountEntity.setUserId(dto.getUserId().trim());
+        accountEntity.setUserPw(passwordEncoder.encode(dto.getUserPw().trim()));
 
         return accountEntity;
     }
