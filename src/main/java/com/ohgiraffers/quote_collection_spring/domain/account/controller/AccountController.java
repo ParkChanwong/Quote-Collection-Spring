@@ -35,4 +35,11 @@ public class AccountController {
 
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "회원가입 성공"));
     }
+
+    @PostMapping("/signup/admin")
+    public ResponseEntity<ResponseSingle<String>> adminSignUp(@RequestBody AccountDTO accountDTO) {
+        accountService.adminSignUp(accountDTO);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "회원가입 성공"));
+    }
 }
