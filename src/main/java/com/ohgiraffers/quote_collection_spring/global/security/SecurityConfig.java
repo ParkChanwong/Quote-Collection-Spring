@@ -9,7 +9,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -42,8 +44,8 @@ public class SecurityConfig {
                         // 앞으로 만들 회원가입·로그인 경로
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/auth/signup",
-                                "/auth/login"
+                                "/account/signup/user",
+                                "/account/signin"
                         ).permitAll()
 
                         // 명언·인물·분류 조회는 공개
@@ -58,7 +60,13 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(authenticationEntryPoint())
+                        .accessDeniedHandler(accessDeniedHandler()))
+
                 .oauth2ResourceServer(resourceServer -> resourceServer
+                        .authenticationEntryPoint(authenticationEntryPoint())
+                        .accessDeniedHandler(accessDeniedHandler())
                         .jwt(jwt -> jwt
                                 .jwtAuthenticationConverter(
                                         jwtAuthenticationConverter()
@@ -83,6 +91,35 @@ public class SecurityConfig {
         converter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
 
         return converter;
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return (request, response, exception) -> {
+            response.setStatus(401);
+            response.setHeader("WWW-Authenticate", "Bearer");
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("""
+                {
+                  "statusCode": 401,
+                  "message": "로그인이 필요하거나 토큰이 유효하지 않습니다."
+                }
+                """);
+        };
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, exception) -> {
+            response.setStatus(403);
+            response.setContentType("application/json;charset=UTF-8");
+            response.getWriter().write("""
+                {
+                  "statusCode": 403,
+                  "message": "접근 권한이 없습니다."
+                }
+                """);
+        };
     }
 
     @Bean
