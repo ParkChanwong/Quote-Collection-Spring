@@ -8,6 +8,8 @@ import com.quotehunters.quotecollection.domain.category.exception.theme.NotFound
 import com.quotehunters.quotecollection.domain.category.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,11 @@ public class ThemeService {
         List<ThemeEntity> themes = themeRepository.findAll(THEME_SORT);
 
         return themes.stream().map(this::convertToDTO).toList();
+    }
+
+    // 전체 분야 조회 - 페이지네이션
+    public Page<ThemeDTO> findAllThemesByPage(Pageable pageable) {
+        return themeRepository.findAll(pageable).map(this::convertToDTO);
     }
 
     // 주제명으로 주제 조회
