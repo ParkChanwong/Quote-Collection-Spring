@@ -29,6 +29,11 @@ spring:
 server:
   port: 8080
 
+app:
+  cors:
+    # 여러 주소는 쉼표로 구분 (예: https://admin.example.com,http://localhost:5173)
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
 jwt:
   secret: ${JWT_SECRET}
   issuer: quote-collection
