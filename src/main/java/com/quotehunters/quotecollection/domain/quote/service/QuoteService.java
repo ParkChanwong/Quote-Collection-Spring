@@ -15,6 +15,8 @@ import com.quotehunters.quotecollection.domain.person.repository.PersonRepositor
 import com.quotehunters.quotecollection.domain.quote.repository.QuoteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -78,6 +80,13 @@ public class QuoteService {
         List<QuoteEntity> quotes = quoteRepository.findAll(QUOTE_SORT);
 
         return quotes.stream().map(this::convertToDTO).toList();
+    }
+
+    // 전체 명언 조회 - 페이지네이션
+    public Page<QuoteResponseDTO> findAllQuotesByPage(Pageable pageable) {
+        Page<QuoteEntity> quotes = quoteRepository.findAll(pageable);
+
+        return quotes.map(this::convertToDTO);
     }
 
     // 인물명으로 명언 조회
