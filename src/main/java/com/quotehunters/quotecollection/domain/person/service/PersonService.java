@@ -17,6 +17,8 @@ import com.quotehunters.quotecollection.domain.category.repository.PeriodReposit
 import com.quotehunters.quotecollection.domain.person.repository.PersonRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -87,6 +89,12 @@ public class PersonService {
 
         return persons.stream().map(this::convertToDTO).toList();
     }
+
+    // 전체 인물 조회 - 페이지네이션
+    public Page<PersonResponseDTO> findAllPersons(Pageable pageable) {
+        return personRepository.findAll(pageable).map(this::convertToDTO);
+    }
+
 
     // 국가명으로 인물 조회
     public List<PersonResponseDTO> findAllPersonsByCountryName(String countryName) {
