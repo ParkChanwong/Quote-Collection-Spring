@@ -1,11 +1,15 @@
 package com.quotehunters.quotecollection.domain.quote.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.quote.dto.QuoteRequestDTO;
 import com.quotehunters.quotecollection.domain.quote.dto.QuoteResponseDTO;
 import com.quotehunters.quotecollection.domain.quote.service.QuoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +27,24 @@ public class QuoteController {
     }
 
     // 전체 명언 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<QuoteResponseDTO>> findAllQuotes() {
         List<QuoteResponseDTO> quotes = quoteService.findAllQuotes();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
     }
+
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<QuoteResponseDTO>> findAllQuotesByPage(
+            @PageableDefault(
+                    size = 10,
+                    sort = {"quote", "themeName", "personName"}
+            ) Pageable pageable) {
+        Page<QuoteResponseDTO> quotes = quoteService.findAllQuotesByPage(pageable);
+
+        return ResponseEntity.ok(new ResponsePage<>(HttpStatus.OK.value(), quotes.getContent(), quotes.getTotalElements(), quotes.getTotalPages()));
+    }
+
 
     // 인물명으로 명언 조회
     @GetMapping("/person")
