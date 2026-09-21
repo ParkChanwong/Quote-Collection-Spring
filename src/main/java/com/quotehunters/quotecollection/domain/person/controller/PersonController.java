@@ -1,11 +1,15 @@
 package com.quotehunters.quotecollection.domain.person.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.person.dto.PersonRequestDTO;
 import com.quotehunters.quotecollection.domain.person.dto.PersonResponseDTO;
 import com.quotehunters.quotecollection.domain.person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +27,30 @@ public class PersonController {
     }
 
     // 전체 인물 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<PersonResponseDTO>> findAllPersons() {
         List<PersonResponseDTO> persons = personService.findAllPersons();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), persons));
+    }
+
+    // 전체 인물 조회 - 페이지네이션
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<PersonResponseDTO>> findAllPersonsByPage (
+            @PageableDefault(
+                    size = 10,
+                    sort = {"name", "countryName", "fieldName", "periodName", "id"}
+            )
+            Pageable pageable
+    ) {
+        Page<PersonResponseDTO> persons = personService.findAllPersons(pageable);
+
+        return ResponseEntity.ok(new ResponsePage<>(
+                HttpStatus.OK.value(),
+                persons.getContent(),
+                persons.getTotalElements(),
+                persons.getTotalPages()
+        ));
     }
 
     // 국가명으로 인물 조회
