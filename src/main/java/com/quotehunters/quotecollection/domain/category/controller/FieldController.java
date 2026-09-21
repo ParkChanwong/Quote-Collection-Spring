@@ -1,10 +1,13 @@
 package com.quotehunters.quotecollection.domain.category.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.category.dto.FieldDTO;
 import com.quotehunters.quotecollection.domain.category.service.FieldService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +25,24 @@ public class FieldController {
     }
 
     // 전체 분야 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<FieldDTO>> findAllFields() {
         List<FieldDTO> fields = fieldService.findAllFields();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), fields));
+    }
+
+    // 전체 분야 조회 - 페이지네이션
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<FieldDTO>> findAllFieldsByPage(Pageable pageable) {
+        Page<FieldDTO> fields = fieldService.findAllFieldsByPage(pageable);
+
+        return ResponseEntity.ok(new ResponsePage<>(
+                HttpStatus.OK.value(),
+                fields.getContent(),
+                fields.getTotalElements(),
+                fields.getTotalPages()
+        ));
     }
 
     // 분야명으로 분야 조회
