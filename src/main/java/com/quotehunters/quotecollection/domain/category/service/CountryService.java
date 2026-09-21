@@ -8,6 +8,8 @@ import com.quotehunters.quotecollection.domain.category.exception.country.NotFou
 import com.quotehunters.quotecollection.domain.category.repository.CountryRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +42,11 @@ public class CountryService {
         List<CountryEntity> countries = countryRepository.findAll(COUNTRY_SORT);
 
         return countries.stream().map(this::convertToDTO).toList();
+    }
+
+    // 전체 국가 페이지 조회
+    public Page<CountryDTO> findAllCountriesByPage(Pageable pageable) {
+        return countryRepository.findAll(pageable).map(this::convertToDTO);
     }
 
     // 국가명 조회
