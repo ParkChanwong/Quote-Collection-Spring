@@ -34,12 +34,14 @@ public class QuoteController {
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), quotes));
     }
 
+    // 전체 명언 조회 - 페이지네이션
     @GetMapping(params = "page")
     public ResponseEntity<ResponsePage<QuoteResponseDTO>> findAllQuotesByPage(
             @PageableDefault(
                     size = 10,
                     sort = {"quote", "themeName", "personName"}
-            ) Pageable pageable) {
+            ) Pageable pageable
+    ) {
         Page<QuoteResponseDTO> quotes = quoteService.findAllQuotesByPage(pageable);
 
         return ResponseEntity.ok(new ResponsePage<>(HttpStatus.OK.value(), quotes.getContent(), quotes.getTotalElements(), quotes.getTotalPages()));
