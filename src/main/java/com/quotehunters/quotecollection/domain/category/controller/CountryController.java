@@ -33,7 +33,7 @@ public class CountryController {
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), countries));
     }
 
-    // 전제 국가 페이지 조회
+    // 전체 국가 조회 - 페이지네이션
     @GetMapping(params = "page")
     public ResponseEntity<ResponsePage<CountryDTO>> findAllCountriesByPage(
             @PageableDefault(

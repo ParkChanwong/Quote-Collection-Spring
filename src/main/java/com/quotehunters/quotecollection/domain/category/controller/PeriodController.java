@@ -1,10 +1,14 @@
 package com.quotehunters.quotecollection.domain.category.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.category.dto.PeriodDTO;
 import com.quotehunters.quotecollection.domain.category.service.PeriodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +26,30 @@ public class PeriodController {
     }
 
     // 전체 시대 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<PeriodDTO>> findAllPeriods() {
         List<PeriodDTO> periods = periodService.findAllPeriods();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), periods));
+    }
+
+    // 전체 시대 조회 - 페이지네이션
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<PeriodDTO>> findAllPeriodsByPage(
+            @PageableDefault(
+                    size = 10,
+                    sort = {"name"}
+            )
+            Pageable pageable
+    ) {
+        Page<PeriodDTO> periods = periodService.findAllPeriodsByPage(pageable);
+
+        return ResponseEntity.ok(new ResponsePage<>(
+                HttpStatus.OK.value(),
+                periods.getContent(),
+                periods.getTotalElements(),
+                periods.getTotalPages()
+        ));
     }
 
     // 시대명으로 시대 조회
