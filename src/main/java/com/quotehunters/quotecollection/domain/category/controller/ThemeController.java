@@ -33,7 +33,7 @@ public class ThemeController {
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), themes));
     }
 
-    // 전체 분야 조회 - 페이지네이션
+    // 전체 주제 조회 - 페이지네이션
     @GetMapping(params = "page")
     public ResponseEntity<ResponsePage<ThemeDTO>> findAllThemesByPage(
             @PageableDefault(
