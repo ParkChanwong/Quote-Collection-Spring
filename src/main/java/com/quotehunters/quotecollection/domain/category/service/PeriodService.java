@@ -8,6 +8,8 @@ import com.quotehunters.quotecollection.domain.category.exception.period.NotFoun
 import com.quotehunters.quotecollection.domain.category.repository.PeriodRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +44,12 @@ public class PeriodService {
         return periods.stream().map(this::convertToDTO).toList();
     }
 
+    // 전체 시대 조회 - 페이지네이션
+    public Page<PeriodDTO> findAllPeriodsByPage(Pageable pageable) {
+        return periodRepository.findAll(pageable).map(this::convertToDTO);
+    }
+
+    // 시대명으로 시대 조회
     public List<PeriodDTO> findAllPeriodsByName(String name) {
         List<PeriodEntity> periods = periodRepository.findByNameContaining(name, PERIOD_SORT);
 
