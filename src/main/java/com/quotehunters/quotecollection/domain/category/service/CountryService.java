@@ -44,7 +44,7 @@ public class CountryService {
         return countries.stream().map(this::convertToDTO).toList();
     }
 
-    // 전체 국가 페이지 조회
+    // 전체 국가 조회 - 페이지네이션
     public Page<CountryDTO> findAllCountriesByPage(Pageable pageable) {
         return countryRepository.findAll(pageable).map(this::convertToDTO);
     }
