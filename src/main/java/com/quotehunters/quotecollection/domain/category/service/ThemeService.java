@@ -44,7 +44,7 @@ public class ThemeService {
         return themes.stream().map(this::convertToDTO).toList();
     }
 
-    // 전체 분야 조회 - 페이지네이션
+    // 전체 주제 조회 - 페이지네이션
     public Page<ThemeDTO> findAllThemesByPage(Pageable pageable) {
         return themeRepository.findAll(pageable).map(this::convertToDTO);
     }
