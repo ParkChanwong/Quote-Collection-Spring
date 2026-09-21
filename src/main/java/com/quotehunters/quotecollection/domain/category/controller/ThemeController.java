@@ -1,10 +1,14 @@
 package com.quotehunters.quotecollection.domain.category.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.category.dto.ThemeDTO;
 import com.quotehunters.quotecollection.domain.category.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +26,30 @@ public class ThemeController {
     }
 
     // 전체 주제 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<ThemeDTO>> findAllThemes() {
         List<ThemeDTO> themes = themeService.findAllThemes();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), themes));
+    }
+
+    // 전체 분야 조회 - 페이지네이션
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<ThemeDTO>> findAllThemesByPage(
+            @PageableDefault(
+                    size = 10,
+                    sort = {"name"}
+            )
+            Pageable pageable
+    ) {
+        Page<ThemeDTO> themes = themeService.findAllThemesByPage(pageable);
+
+        return ResponseEntity.ok(new ResponsePage<>(
+                HttpStatus.OK.value(),
+                themes.getContent(),
+                themes.getTotalElements(),
+                themes.getTotalPages()
+        ));
     }
 
     // 주제명으로 주제 조회
