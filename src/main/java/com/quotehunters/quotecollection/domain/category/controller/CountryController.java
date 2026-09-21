@@ -1,10 +1,14 @@
 package com.quotehunters.quotecollection.domain.category.controller;
 
 import com.quotehunters.quotecollection.global.common.ResponseList;
+import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
 import com.quotehunters.quotecollection.domain.category.dto.CountryDTO;
 import com.quotehunters.quotecollection.domain.category.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +26,29 @@ public class CountryController {
     }
 
     // 전체 국가 조회
-    @GetMapping
+    @GetMapping(params = "!page")
     public ResponseEntity<ResponseList<CountryDTO>> findAllCountries() {
         List<CountryDTO> countries = countryService.findAllCountries();
 
         return ResponseEntity.ok(new ResponseList<>(HttpStatus.OK.value(), countries));
+    }
+
+    // 전제 국가 페이지 조회
+    @GetMapping(params = "page")
+    public ResponseEntity<ResponsePage<CountryDTO>> findAllCountriesByPage(
+            @PageableDefault(
+                    size = 10,
+                    sort = {"name"}
+            ) Pageable page
+    ) {
+        Page<CountryDTO> countries = countryService.findAllCountriesByPage(page);
+
+        return ResponseEntity.ok(new ResponsePage<>(
+                HttpStatus.OK.value(),
+                countries.getContent(),
+                countries.getTotalElements(),
+                countries.getTotalPages()
+        ));
     }
 
     // 국가명으로 국가 조회
