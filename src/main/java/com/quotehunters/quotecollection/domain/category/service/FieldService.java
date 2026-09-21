@@ -8,6 +8,8 @@ import com.quotehunters.quotecollection.domain.category.exception.field.NotFound
 import com.quotehunters.quotecollection.domain.category.repository.FieldRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,12 @@ public class FieldService {
 
         return fields.stream().map(this::convertToDTO).toList();
     }
+
+    // 전체 분야 조회 - 페이지네이션
+    public Page<FieldDTO> findAllFieldsByPage(Pageable pageable) {
+        return fieldRepository.findAll(pageable).map(this::convertToDTO);
+    }
+
 
     // 분야명으로 분야 조회
     public List<FieldDTO> findAllFieldsByName(String name) {
