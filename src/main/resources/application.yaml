@@ -3,10 +3,10 @@ spring:
     name: Quote_Collection_Spring
 
   datasource:
-    url: jdbc:mysql://localhost:3306/quotedb
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: quotecollection
-    password: quotecollection
+    url: ${DB_URL}
+    driver-class-name: ${DB_DRIVER}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
   jpa:
     generate-ddl: false          # 엔티티 바탕으로 테이블 자동 생성, 수정 등 하는 기능 끄기
@@ -28,3 +28,13 @@ spring:
 
 server:
   port: 8080
+
+app:
+  cors:
+    # 여러 주소는 쉼표로 구분 (예: https://admin.example.com,http://localhost:5173)
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+jwt:
+  secret: ${JWT_SECRET}
+  issuer: quote-collection
+  access-token-expiration: 24h
