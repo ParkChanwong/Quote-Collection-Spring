@@ -119,6 +119,13 @@ public class QuoteService {
         return convertToDTO(quoteEntity);
     }
 
+    // 주제, 인물명 + 키워드 조회
+    public Page<QuoteResponseDTO> searchQuotes(String themeName, String keyword, Pageable pageable) {
+        Page<QuoteEntity> quotes = quoteRepository.searchQuotes(themeName, keyword, pageable);
+
+        return quotes.map(this::convertToDTO);
+    }
+
     // 명언 등록
     @Transactional
     public void saveQuote(QuoteRequestDTO quoteDTO) {
