@@ -1,5 +1,7 @@
 package com.quotehunters.quotecollection.domain.quote.service;
 
+import com.quotehunters.quotecollection.domain.mypage.bookmark.repository.BookmarkRepository;
+import com.quotehunters.quotecollection.domain.quote.dto.BookmarkResponseDTO;
 import com.quotehunters.quotecollection.domain.quote.dto.QuoteRequestDTO;
 import com.quotehunters.quotecollection.domain.quote.dto.QuoteResponseDTO;
 import com.quotehunters.quotecollection.domain.category.entity.ThemeEntity;
@@ -20,7 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class QuoteService {
@@ -29,16 +33,50 @@ public class QuoteService {
     private final QuoteRepository quoteRepository;
     private final PersonRepository personRepository;
     private final ThemeRepository themeRepository;
+    private final BookmarkRepository bookmarkRepository;
 
     @Autowired
     public QuoteService(
             QuoteRepository quoteRepository,
             PersonRepository personRepository,
-            ThemeRepository themeRepository
+            ThemeRepository themeRepository,
+            BookmarkRepository bookmarkRepository
     ) {
         this.quoteRepository = quoteRepository;
         this.personRepository = personRepository;
         this.themeRepository = themeRepository;
+        this.bookmarkRepository = bookmarkRepository;
+    }
+
+    private Set<Integer> findBookmarkedIds(
+            Integer accountId,
+            List<QuoteEntity> quotes
+    ) {
+        // 비로그인 또는 검색 결과가 없으면 북마크 조회 생략
+        if (accountId == null || quotes.isEmpty()) {
+            return Set.of();
+        }
+
+        List<Integer> quoteIds = quotes.stream()
+                .map(QuoteEntity::getId)
+                .toList();
+
+        return new HashSet<>(
+                bookmarkRepository.findBookmarkedQuoteIds(accountId, quoteIds)
+        );
+    }
+
+    private BookmarkResponseDTO convertToDTO(
+            QuoteEntity quote,
+            Set<Integer> bookmarkedIds
+    ) {
+        return new BookmarkResponseDTO(
+                quote.getId(),
+                quote.getPerson().getName(),
+                quote.getTheme().getName(),
+                quote.getQuote(),
+                bookmarkedIds.contains(quote.getId())
+        );
     }
 
     private QuoteResponseDTO convertToDTO(QuoteEntity quoteEntity) {
@@ -117,6 +155,15 @@ public class QuoteService {
                 orElseThrow(NotFoundQuoteException::new);
 
         return convertToDTO(quoteEntity);
+    }
+
+    // 주제, 인물명 + 키워드 조회
+    public Page<BookmarkResponseDTO> searchQuotes(Integer accountId, String themeName, String keyword, Pageable pageable) {
+        Page<QuoteEntity> quotes = quoteRepository.searchQuotes(themeName, keyword, pageable);
+
+        Set<Integer> bookmarkedIds = findBookmarkedIds(accountId, quotes.getContent());
+
+        return quotes.map(quote -> convertToDTO(quote, bookmarkedIds));
     }
 
     // 명언 등록
