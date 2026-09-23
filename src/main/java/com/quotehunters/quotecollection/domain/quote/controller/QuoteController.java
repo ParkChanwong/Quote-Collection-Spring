@@ -80,6 +80,29 @@ public class QuoteController {
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), quote));
     }
 
+    // 주제, 인물명 + 키워드 조회
+    @GetMapping("/search")
+    public ResponseEntity<ResponsePage<QuoteResponseDTO>> searchQuotes(
+        @RequestParam String theme,
+        @RequestParam String keyword,
+        @PageableDefault(
+                size = 10,
+                sort = {"quote", "person.name", "theme.name", "id"}
+        ) Pageable pageable
+    ) {
+        Page<QuoteResponseDTO> quotes =
+                quoteService.searchQuotes(theme.trim(), keyword.trim(), pageable);
+
+        return ResponseEntity.ok(
+                new ResponsePage<>(
+                        HttpStatus.OK.value(),
+                        quotes.getContent(),
+                        quotes.getTotalElements(),
+                        quotes.getTotalPages()
+                )
+        );
+    }
+
     // 명언 등록
     @PostMapping
     public ResponseEntity<ResponseSingle<String>> saveQuote(@RequestBody QuoteRequestDTO quoteRequestDTO) {
