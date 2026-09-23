@@ -1,5 +1,6 @@
 package com.quotehunters.quotecollection.domain.quote.controller;
 
+import com.quotehunters.quotecollection.domain.quote.dto.BookmarkResponseDTO;
 import com.quotehunters.quotecollection.global.common.ResponseList;
 import com.quotehunters.quotecollection.global.common.ResponsePage;
 import com.quotehunters.quotecollection.global.common.ResponseSingle;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -82,7 +85,8 @@ public class QuoteController {
 
     // 주제, 인물명 + 키워드 조회
     @GetMapping("/search")
-    public ResponseEntity<ResponsePage<QuoteResponseDTO>> searchQuotes(
+    public ResponseEntity<ResponsePage<BookmarkResponseDTO>> searchQuotes(
+        @AuthenticationPrincipal Jwt jwt,
         @RequestParam String theme,
         @RequestParam String keyword,
         @PageableDefault(
@@ -90,8 +94,11 @@ public class QuoteController {
                 sort = {"quote", "person.name", "theme.name", "id"}
         ) Pageable pageable
     ) {
-        Page<QuoteResponseDTO> quotes =
-                quoteService.searchQuotes(theme.trim(), keyword.trim(), pageable);
+        Integer accountId =
+                jwt == null ? null : Integer.valueOf(jwt.getSubject());
+
+        Page<BookmarkResponseDTO> quotes =
+                quoteService.searchQuotes(accountId, theme.trim(), keyword.trim(), pageable);
 
         return ResponseEntity.ok(
                 new ResponsePage<>(
