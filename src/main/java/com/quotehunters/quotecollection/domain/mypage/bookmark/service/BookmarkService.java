@@ -50,6 +50,7 @@ public class BookmarkService {
         return new BookmarkDTO(
                 bookmarkEntity.getId(),
                 bookmarkEntity.getQuote().getPerson().getName(),
+                bookmarkEntity.getQuote().getTheme().getName(),
                 bookmarkEntity.getQuote().getQuote()
         );
     }
