@@ -34,6 +34,7 @@ public class AccountService {
         return accountEntity;
     }
 
+    // 로그인
     public String signIn(AccountDTO accountDTO, int auth) {
         if (auth != 0 && auth != 1) {
             throw new InvalidAuthException();
@@ -62,6 +63,7 @@ public class AccountService {
         return jwtService.createAccessToken(account.getId(), role);
     }
 
+    // 유저 회원가입
     public void userSignUp(AccountDTO accountDTO) {
         if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
             throw new EmptyIdException();
@@ -77,6 +79,7 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+    // 관리자 회원가입
     public void adminSignUp(AccountDTO accountDTO) {
         if (accountDTO.getUserId() == null || accountDTO.getUserId().isBlank()) {
             throw new EmptyIdException();
