@@ -22,6 +22,7 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    // 로그인
     @PostMapping("/signin")
     public ResponseEntity<ResponseSingle<String>> signIn(
             @RequestBody AccountDTO accountDTO,
@@ -32,6 +33,7 @@ public class AccountController {
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), token));
     }
 
+    // 유저 회원가입
     @PostMapping("/signup/user")
     public ResponseEntity<ResponseSingle<String>> userSignUp(@RequestBody AccountDTO accountDTO) {
         accountService.userSignUp(accountDTO);
@@ -39,6 +41,7 @@ public class AccountController {
         return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), "회원가입 성공"));
     }
 
+    // 관리자 회원가입
     @PostMapping("/signup/admin")
     public ResponseEntity<ResponseSingle<String>> adminSignUp(@RequestBody AccountDTO accountDTO) {
         accountService.adminSignUp(accountDTO);
