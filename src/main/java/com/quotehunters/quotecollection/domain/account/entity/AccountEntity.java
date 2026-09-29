@@ -2,6 +2,8 @@ package com.quotehunters.quotecollection.domain.account.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "quote_user", uniqueConstraints =
         @UniqueConstraint(name = "uq_user_id_auth", columnNames = {"user_id", "user_auth"}))
@@ -19,6 +21,12 @@ public class AccountEntity {
 
     @Column(name = "user_auth")
     private int auth;
+
+    @Column(name = "daily_quote")
+    private Integer dailyQuoteId;
+
+    @Column(name = "daily_quote_date")
+    private LocalDate dailyQuoteDate;
 
     public AccountEntity() {}
 
@@ -59,6 +67,22 @@ public class AccountEntity {
 
     public void setAuth(int auth) {
         this.auth = auth;
+    }
+
+    public Integer getDailyQuoteId() {
+        return dailyQuoteId;
+    }
+
+    public void setDailyQuoteId(Integer dailyQuoteId) {
+        this.dailyQuoteId = dailyQuoteId;
+    }
+
+    public LocalDate getDailyQuoteDate() {
+        return dailyQuoteDate;
+    }
+
+    public void setDailyQuoteDate(LocalDate dailyQuoteDate) {
+        this.dailyQuoteDate = dailyQuoteDate;
     }
 
     @Override
