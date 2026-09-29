@@ -110,6 +110,20 @@ public class QuoteController {
         );
     }
 
+    // 오늘의 명언
+    @GetMapping("/daily")
+    public ResponseEntity<ResponseSingle<BookmarkResponseDTO>> findDailyQuote(@AuthenticationPrincipal Jwt jwt) {
+        Integer accountId =
+                jwt == null ? null : Integer.valueOf(jwt.getSubject());
+
+        System.out.println("jwt 존재: " + (jwt != null));
+        System.out.println("accountId: " + accountId);
+
+        BookmarkResponseDTO quote = quoteService.findDailyQuote(accountId);
+
+        return ResponseEntity.ok(new ResponseSingle<>(HttpStatus.OK.value(), quote));
+    }
+
     // 명언 등록
     @PostMapping
     public ResponseEntity<ResponseSingle<String>> saveQuote(@RequestBody QuoteRequestDTO quoteRequestDTO) {
