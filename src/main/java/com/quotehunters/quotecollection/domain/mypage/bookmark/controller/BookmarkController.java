@@ -1,5 +1,8 @@
 package com.quotehunters.quotecollection.domain.mypage.bookmark.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.dto.BookmarkRequestDTO;
 import com.quotehunters.quotecollection.domain.mypage.bookmark.service.BookmarkService;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Objects;
 
+@Tag(name = "북마크", description = "내 북마크 조회·등록·취소 API")
+@SecurityRequirement(name = "bearerAuth")
 @RestController
 @RequestMapping("/mypage")
 public class BookmarkController {
@@ -26,6 +31,8 @@ public class BookmarkController {
     }
 
     // 내 전체 북마크
+    @Operation(summary = "내 북마크 조회",
+            description = "로그인한 회원의 북마크 목록을 조회합니다.")
     @GetMapping("/bookmark")
     public ResponseEntity<ResponseList<BookmarkDTO>> findAllBookmarks(@AuthenticationPrincipal Jwt jwt) {
         int myId = Integer.parseInt(Objects.requireNonNull(jwt.getSubject()));
@@ -35,6 +42,8 @@ public class BookmarkController {
     }
 
     // 북마크 등록
+    @Operation(summary = "북마크 등록",
+            description = "로그인한 회원의 북마크에 명언을 추가합니다.")
     @PostMapping("/bookmark")
     public ResponseEntity<ResponseSingle<String>> saveBookmark(@AuthenticationPrincipal Jwt jwt, @RequestBody BookmarkRequestDTO bookmarkRequestDTO) {
         int myId = Integer.parseInt(Objects.requireNonNull(jwt.getSubject()));
@@ -45,6 +54,8 @@ public class BookmarkController {
     }
 
     // 북마크 취소
+    @Operation(summary = "북마크 취소",
+            description = "로그인한 회원의 북마크를 ID로 삭제합니다.")
     @DeleteMapping("/bookmark/{bookmarkId}")
     public ResponseEntity<ResponseSingle<String>> bookmarkCancel(@AuthenticationPrincipal Jwt jwt, @PathVariable int bookmarkId) {
         int myId = Integer.parseInt(Objects.requireNonNull(jwt.getSubject()));

@@ -46,6 +46,14 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
 
                 .authorizeHttpRequests(auth -> auth
+                        // swagger UI와 API 명세는 로그인 없이 접근 허용
+                        .requestMatchers(
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs",
+                                "/v3/api-docs/**"
+                        ).permitAll()
+
                         // 앞으로 만들 회원가입·로그인 경로
                         .requestMatchers(
                                 HttpMethod.POST,

@@ -38,3 +38,11 @@ jwt:
   secret: ${JWT_SECRET}
   issuer: quote-collection
   access-token-expiration: 24h
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    display-request-duration: true
+    # GET → POST → PUT → DELETE 정렬은 SwaggerConfig에서 설정
